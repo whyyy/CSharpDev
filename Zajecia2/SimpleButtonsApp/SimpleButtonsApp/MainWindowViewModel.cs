@@ -42,7 +42,7 @@ namespace SimpleButtonsApp
         [RelayCommand]
         async Task Stop(CancellationToken cancellationToken)
         {
-            _cancellationTokenSource.Cancel();
+            await Task.Run(() =>_cancellationTokenSource.Cancel(), cancellationToken);
         }
 
         private async Task StartDelayAsync(CancellationToken cancellationToken)
