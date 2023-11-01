@@ -23,8 +23,8 @@
                 x:Name="StartButton" 
                 MaxHeight="50" 
                 MaxWidth="150"
-                Command="{Binding StartCommand}">
-            <TextBlock>Start</TextBlock>
+                Command="{Binding StartMultipleCommand}">
+            <TextBlock>Start Multiple</TextBlock>
         </Button>
         <Label Grid.Column="1"
                MaxHeight="50"

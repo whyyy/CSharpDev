@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -10,8 +11,6 @@ namespace SimpleButtonsApp
     {
         private CancellationTokenSource _cancellationTokenSource;
 
-        private TimeSpan _timeout = TimeSpan.FromSeconds(10);
-
         [ObservableProperty]
         private string _infoLabel;
 
@@ -20,34 +19,50 @@ namespace SimpleButtonsApp
         }
 
         [RelayCommand]
-        async Task Start()
+        async Task StartMultiple()
         {
             _cancellationTokenSource = new CancellationTokenSource();
-            InfoLabel = "Start button was clicked";
+            InfoLabel = "Start multiple button was clicked";
             var token = _cancellationTokenSource.Token;
-            try
-            {
-                await StartDelayAsync(token);
-            }
-            catch (OperationCanceledException ex)
-            {
-                InfoLabel = "Process was cancelled";
-            }
-            finally 
-            {
-                _cancellationTokenSource.Dispose(); 
-            }
+            await StartMultipleDelaysAsync(token);
         }
 
         [RelayCommand]
-        async Task Stop(CancellationToken cancellationToken)
+        async Task Stop()
         {
-            await Task.Run(() =>_cancellationTokenSource.Cancel(), cancellationToken);
+            await Task.Run(() =>_cancellationTokenSource.Cancel());
         }
 
-        private async Task StartDelayAsync(CancellationToken cancellationToken)
+        private async Task StartMultipleDelaysAsync(CancellationToken cancellationToken)
         {
-            await Task.Delay(_timeout, cancellationToken);
+            var longDelayTask = Task.Delay(TimeSpan.FromSeconds(15), cancellationToken);
+            var shortDelayTask = Task.Delay(TimeSpan.FromSeconds(5), cancellationToken);
+            var mediumDelayTask = Task.Delay(TimeSpan.FromSeconds(10), cancellationToken);
+
+            var delayTasks = new List<Task> { shortDelayTask, mediumDelayTask, longDelayTask };
+
+            delayTasks.ForEach(t => OutputPrinter.Print($"Id: {t.Id}, status: {t.Status}, time: {DateTime.Now}"));
+
+            try
+            {
+                while (delayTasks.Count > 0)
+                {
+                    var delayFinishedTask = await Task.WhenAny(delayTasks);
+
+                    await delayFinishedTask;
+
+                    OutputPrinter.Print($"Finished task, id: {delayFinishedTask.Id}, "
+                                        + $"status: {delayFinishedTask.Status}, "
+                                        + $"time: {DateTime.Now}");
+                    delayTasks.Remove(delayFinishedTask);
+                }
+            }
+            catch (TaskCanceledException ex)
+            {
+                InfoLabel = $"Process was cancelled";
+                OutputPrinter.Print("Remaining tasks:");
+                delayTasks.ForEach(t => OutputPrinter.Print($"Id: {t.Id}, status: {t.Status}, time: {DateTime.Now}"));
+            }
         }
     }
 }
