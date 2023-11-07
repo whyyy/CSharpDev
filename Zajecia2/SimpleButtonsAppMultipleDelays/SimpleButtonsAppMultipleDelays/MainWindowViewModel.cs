@@ -3,13 +3,16 @@
     using CommunityToolkit.Mvvm.ComponentModel;
     using CommunityToolkit.Mvvm.Input;
     using System;
+    using System.Collections.Concurrent;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
 
     public partial class MainWindowViewModel : ObservableObject
     {
         private CancellationTokenSource cancellationTokenSource;
+        private ConcurrentDictionary<int, Task> delayTasks;
 
         [ObservableProperty]
         private string _infoLabel;
@@ -22,6 +25,7 @@
         async Task StartMultiple()
         {
             this.cancellationTokenSource = new CancellationTokenSource();
+            this.delayTasks = new ConcurrentDictionary<int, Task>();
             InfoLabel = "Start multiple button was clicked";
             var token = this.cancellationTokenSource.Token;
             await StartMultipleDelaysAsync(token);
@@ -39,27 +43,23 @@
             var shortDelayTask = Task.Delay(TimeSpan.FromSeconds(5), cancellationToken);
             var mediumDelayTask = Task.Delay(TimeSpan.FromSeconds(10), cancellationToken);
 
-            var delayTasks = new List<Task> { shortDelayTask, mediumDelayTask, longDelayTask };
-
-            delayTasks.ForEach(t => OutputPrinter.Print($"Id: {t.Id}, status: {t.Status}, time: {DateTime.Now}"));
+            delayTasks.TryAdd(0, longDelayTask);
+            delayTasks.TryAdd(1, shortDelayTask);
+            delayTasks.TryAdd(2, mediumDelayTask);
 
             try
             {
                 while (delayTasks.Count > 0)
                 {
-                    var delayFinishedTask = await Task.WhenAny(delayTasks);
-
-                    OutputPrinter.Print($"Finished task, id: {delayFinishedTask.Id}, "
-                                        + $"status: {delayFinishedTask.Status}, "
-                                        + $"time: {DateTime.Now}");
-                    delayTasks.Remove(delayFinishedTask);
+                    var delayFinishedTask = await Task.WhenAny(delayTasks.Values);
+                    await delayFinishedTask;
+                    var key = delayTasks.Where(t => t.Value == delayFinishedTask).Select(k => k.Key).First();
+                    delayTasks.Remove(key, out _);
                 }
             }
             catch (TaskCanceledException ex)
             {
                 InfoLabel = $"Process was cancelled";
-                OutputPrinter.Print("Remaining tasks:");
-                delayTasks.ForEach(t => OutputPrinter.Print($"Id: {t.Id}, status: {t.Status}, time: {DateTime.Now}"));
             }
         }
     }

@@ -5,6 +5,8 @@ VisualStudioVersion = 17.6.33829.357
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleButtonsAppMultipleDelays", "SimpleButtonsAppMultipleDelays\SimpleButtonsAppMultipleDelays.csproj", "{43D4799E-9732-4602-997D-F20BF28ADDDC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleButtonsAppMultipleDelaysTests", "SimpleButtonsAppMultipleDelaysTests\SimpleButtonsAppMultipleDelaysTests.csproj", "{AC3582A6-E230-499B-A4B8-ABE7E9561496}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{43D4799E-9732-4602-997D-F20BF28ADDDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{43D4799E-9732-4602-997D-F20BF28ADDDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{43D4799E-9732-4602-997D-F20BF28ADDDC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC3582A6-E230-499B-A4B8-ABE7E9561496}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC3582A6-E230-499B-A4B8-ABE7E9561496}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC3582A6-E230-499B-A4B8-ABE7E9561496}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC3582A6-E230-499B-A4B8-ABE7E9561496}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
