@@ -31,7 +31,7 @@
             await Task.Run(() => this.cancellationTokenSource?.Cancel());
         }
 
-        private async Task StartMultipleDelaysAsync(CancellationToken cancellationToken)
+        public async Task StartMultipleDelaysAsync(CancellationToken cancellationToken)
         {
             try
             {
@@ -46,7 +46,7 @@
             }
         }
 
-        private async Task<bool> IsInfiniteLoopRunningAsync(CancellationToken cancellationToken)
+        public async Task<bool> IsInfiniteLoopRunningAsync(CancellationToken cancellationToken)
         {
             return await Task.Run(() =>
             {
