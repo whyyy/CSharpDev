@@ -1,15 +1,15 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
-using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace SimpleButtonsApp
+﻿namespace SimpleButtonsApp
 {
+    using CommunityToolkit.Mvvm.ComponentModel;
+    using CommunityToolkit.Mvvm.Input;
+    using System;
+    using System.Collections.Generic;
+    using System.Threading;
+    using System.Threading.Tasks;
+
     public partial class MainWindowViewModel : ObservableObject
     {
-        private CancellationTokenSource _cancellationTokenSource;
+        private CancellationTokenSource cancellationTokenSource;
 
         [ObservableProperty]
         private string _infoLabel;
@@ -21,16 +21,16 @@ namespace SimpleButtonsApp
         [RelayCommand]
         async Task StartMultiple()
         {
-            _cancellationTokenSource = new CancellationTokenSource();
+            this.cancellationTokenSource = new CancellationTokenSource();
             InfoLabel = "Start multiple button was clicked";
-            var token = _cancellationTokenSource.Token;
+            var token = this.cancellationTokenSource.Token;
             await StartMultipleDelaysAsync(token);
         }
 
         [RelayCommand]
         async Task Stop()
         {
-            await Task.Run(() =>_cancellationTokenSource.Cancel());
+            await Task.Run(() => this.cancellationTokenSource?.Cancel());
         }
 
         private async Task StartMultipleDelaysAsync(CancellationToken cancellationToken)
@@ -48,8 +48,6 @@ namespace SimpleButtonsApp
                 while (delayTasks.Count > 0)
                 {
                     var delayFinishedTask = await Task.WhenAny(delayTasks);
-
-                    await delayFinishedTask;
 
                     OutputPrinter.Print($"Finished task, id: {delayFinishedTask.Id}, "
                                         + $"status: {delayFinishedTask.Status}, "
