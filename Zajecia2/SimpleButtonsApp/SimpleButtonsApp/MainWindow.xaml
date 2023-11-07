@@ -6,7 +6,38 @@
         xmlns:local="clr-namespace:SimpleButtonsApp"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+    <Window.DataContext>
+        <local:MainWindowViewModel/>
+    </Window.DataContext>
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
+        <Button Grid.Column="0" 
+                x:Name="StartButton" 
+                MaxHeight="50" 
+                MaxWidth="150"
+                Command="{Binding StartCommand}">
+            <TextBlock>Start</TextBlock>
+        </Button>
+        <Label Grid.Column="1"
+               MaxHeight="50"
+               MaxWidth="300"
+               x:Name="InfoLabel"
+               Visibility="Visible"
+               Content="{Binding InfoLabel}"/>
+        <Button Grid.Column="2" 
+                x:Name="StopButton" 
+                MaxHeight="50" 
+                MaxWidth="150"
+                Command="{Binding StopCommand}">
+            <TextBlock>Stop</TextBlock>
+        </Button>
     </Grid>
 </Window>
