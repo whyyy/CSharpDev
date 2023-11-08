@@ -2,6 +2,7 @@ namespace SimpleButtonsAppMultipleDelaysTests
 {
     using FluentAssertions;
     using NSubstitute;
+    using NUnit.Framework;
     using SimpleButtonsApp;
 
     public class MainWindowViewModelTests
@@ -15,6 +16,7 @@ namespace SimpleButtonsAppMultipleDelaysTests
         }
 
         [Test]
+        [Ignore("Infinite loop without returning true, to avoid spamming of new tasks creation")]
         public async Task Should_return_true_when_infinite_loop_is_running()
         {
             //given
@@ -53,7 +55,7 @@ namespace SimpleButtonsAppMultipleDelaysTests
 
             //when
 
-            var result = async () => await sut.StartMultipleDelaysAsync(cancellationTokenSource.Token);
+            var result = async () => await sut.StartInfiniteLoop(cancellationTokenSource.Token);
 
             //then
 

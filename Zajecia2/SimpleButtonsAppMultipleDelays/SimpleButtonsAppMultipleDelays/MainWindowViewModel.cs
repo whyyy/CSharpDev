@@ -2,12 +2,16 @@
 {
     using CommunityToolkit.Mvvm.ComponentModel;
     using CommunityToolkit.Mvvm.Input;
+    using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
 
     public partial class MainWindowViewModel : ObservableObject
     {
         private CancellationTokenSource cancellationTokenSource;
+        private List<Task> runningTasks = new List<Task>();
+        private string textToEdit;
+        private readonly object editionLock = new object();
 
         [ObservableProperty]
         private string _infoLabel;
@@ -22,7 +26,16 @@
             this.cancellationTokenSource = new CancellationTokenSource();
             InfoLabel = "Start multiple button was clicked";
             var token = this.cancellationTokenSource.Token;
-            await StartMultipleDelaysAsync(token);
+            var firstInfiniteLoop = StartInfiniteLoop(token);
+            var secondInfiniteLoop = StartInfiniteLoop(token);
+            runningTasks.Add(firstInfiniteLoop);
+            runningTasks.Add(secondInfiniteLoop);
+
+            while(runningTasks.Count > 0)
+            {
+                var finishedTask = await Task.WhenAny(runningTasks);
+                runningTasks.Remove(finishedTask);
+            }
         }
 
         [RelayCommand]
@@ -31,7 +44,7 @@
             await Task.Run(() => this.cancellationTokenSource?.Cancel());
         }
 
-        public async Task StartMultipleDelaysAsync(CancellationToken cancellationToken)
+        public async Task StartInfiniteLoop(CancellationToken cancellationToken)
         {
             try
             {
@@ -52,10 +65,18 @@
             {
                 while (!cancellationToken.IsCancellationRequested)
                 {
-                    return true;
+                    lock (editionLock)
+                    {
+                        for (int i = 0; i < 10; i++)
+                        {
+                            this.textToEdit = $"Task: {Task.CurrentId}; Count: {i}";
+                            OutputPrinter.Print( this.textToEdit);
+                        }
+                    }
                 }
-                throw new TaskCanceledException();
-            });
+                cancellationToken.ThrowIfCancellationRequested();
+                return false;
+            }, cancellationToken);
         }
     }
 }
