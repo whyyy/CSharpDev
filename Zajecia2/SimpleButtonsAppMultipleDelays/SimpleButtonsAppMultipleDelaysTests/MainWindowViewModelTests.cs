@@ -15,6 +15,7 @@ namespace SimpleButtonsAppMultipleDelaysTests
         }
 
         [Test]
+        [Ignore("Return true removed from async method, to avoid spamming of new tasks creation")]
         public async Task Should_return_true_when_infinite_loop_is_running()
         {
             //given
@@ -41,7 +42,7 @@ namespace SimpleButtonsAppMultipleDelaysTests
 
             //then
 
-            await result.Should().ThrowAsync<TaskCanceledException>();
+            await result.Should().ThrowAsync<OperationCanceledException>();
         }
 
         [Test]
@@ -53,7 +54,7 @@ namespace SimpleButtonsAppMultipleDelaysTests
 
             //when
 
-            var result = async () => await sut.StartMultipleDelaysAsync(cancellationTokenSource.Token);
+            var result = async () => await sut.StartInfiniteLoop(cancellationTokenSource.Token);
 
             //then
 
