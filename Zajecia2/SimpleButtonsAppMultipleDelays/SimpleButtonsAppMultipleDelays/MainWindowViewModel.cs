@@ -15,7 +15,7 @@
         private ConcurrentDictionary<int,string> informationToPrint = new ConcurrentDictionary<int, string>();
 
         [ObservableProperty]
-        private string _infoLabel;
+        private string infoLabel;
 
         public MainWindowViewModel()
         {
