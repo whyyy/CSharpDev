@@ -79,7 +79,7 @@
                 }
                 cancellationToken.ThrowIfCancellationRequested();
                 return false;
-            });
+            }, cancellationToken);
         }
     }
 }
