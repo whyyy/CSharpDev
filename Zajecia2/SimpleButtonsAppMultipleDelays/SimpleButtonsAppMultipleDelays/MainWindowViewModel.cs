@@ -49,6 +49,7 @@
                 {
                     var delayFinishedTask = await Task.WhenAny(delayTasks);
 
+                    await delayFinishedTask;
                     OutputPrinter.Print($"Finished task, id: {delayFinishedTask.Id}, "
                                         + $"status: {delayFinishedTask.Status}, "
                                         + $"time: {DateTime.Now}");
