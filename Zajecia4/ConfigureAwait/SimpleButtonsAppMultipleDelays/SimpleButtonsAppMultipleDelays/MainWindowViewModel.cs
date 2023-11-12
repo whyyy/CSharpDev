@@ -10,33 +10,37 @@
 
     public partial class MainWindowViewModel : ObservableObject
     {
+        private Random random;
         private CancellationTokenSource cancellationTokenSource;
         private ConcurrentDictionary<int, Task> runningTasks = new ConcurrentDictionary<int, Task>();
-        private ConcurrentDictionary<int,string> informationToPrint = new ConcurrentDictionary<int, string>();
 
         [ObservableProperty]
         private string infoLabel;
 
+        [ObservableProperty]
+        private string loopLabel;
+
         public MainWindowViewModel()
         {
+            this.random = new Random();
         }
 
         [RelayCommand]
-        async Task StartMultiple()
+        async Task StartDrawing()
         {
             this.cancellationTokenSource = new CancellationTokenSource();
-            InfoLabel = "Start multiple button was clicked";
+            InfoLabel = "Start Drawing button was clicked";
             var token = this.cancellationTokenSource.Token;
-            var firstInfiniteLoop = StartInfiniteLoop(token);
-            var secondInfiniteLoop = StartInfiniteLoop(token);
-            runningTasks.TryAdd(0, firstInfiniteLoop);
-            runningTasks.TryAdd(1, secondInfiniteLoop);
+            var firstInfiniteLoop = StartDrawingLoop(token);
+            var secondInfiniteLoop = StartDrawingLoop(token);
+            this.runningTasks.TryAdd(0, firstInfiniteLoop);
+            this.runningTasks.TryAdd(1, secondInfiniteLoop);
 
             while(runningTasks.Count > 0)
             {
-                var finishedTask = await Task.WhenAny(runningTasks.Values);
-                var taskToRemove = runningTasks.First(t => t.Value == finishedTask);
-                runningTasks.TryRemove(taskToRemove);
+                var finishedTask = await Task.WhenAny(this.runningTasks.Values);
+                var taskToRemove = this.runningTasks.First(t => t.Value == finishedTask);
+                this.runningTasks.TryRemove(taskToRemove);
             }
         }
 
@@ -46,40 +50,29 @@
             await Task.Run(() => this.cancellationTokenSource?.Cancel());
         }
 
-        public async Task StartInfiniteLoop(CancellationToken cancellationToken)
+        public async Task StartDrawingLoop(CancellationToken cancellationToken)
         {
             try
             {
-                while (await IsInfiniteLoopRunningAsync(cancellationToken))
+                while (await Task.Run(() => StartDrawingLuckyNumber(cancellationToken)))
                 {
                 }
                 
             }
             catch (OperationCanceledException ex)
             {
-                InfoLabel = $"Process was cancelled";
+                this.InfoLabel = $"Process was cancelled";
             }
         }
 
-        public async Task<bool> IsInfiniteLoopRunningAsync(CancellationToken cancellationToken)
+        public async Task<bool> StartDrawingLuckyNumber(CancellationToken cancellationToken)
         {
-            return await Task.Run(() =>
+            while (!cancellationToken.IsCancellationRequested)
             {
-                while (!cancellationToken.IsCancellationRequested)
-                {
-                    for (int i = 0; i < 5; i++)
-                    {
-                        var information = $"Task: {Task.CurrentId}, key: {i}, collection count: {this.informationToPrint.Count}";
-                        var hasAdded = this.informationToPrint.TryAdd(i, information);
-                        if (hasAdded)
-                        {
-                            OutputPrinter.Print($"Value: {this.informationToPrint[i]}");
-                        }
-                    }
-                }
-                cancellationToken.ThrowIfCancellationRequested();
-                return false;
-            }, cancellationToken);
+                this.LoopLabel = $"Lucky number is: {this.random.Next(1, 99)}";
+            }
+            cancellationToken.ThrowIfCancellationRequested();
+            return false;
         }
     }
 }

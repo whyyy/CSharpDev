@@ -20,6 +20,7 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
         <Button
@@ -27,8 +28,8 @@
             Grid.Column="0"
             MaxWidth="150"
             MaxHeight="50"
-            Command="{Binding StartMultipleCommand}">
-            <TextBlock>Start Multiple</TextBlock>
+            Command="{Binding StartDrawingCommand}">
+            <TextBlock>Start Drawing</TextBlock>
         </Button>
         <Label
             x:Name="InfoLabel"
@@ -36,6 +37,14 @@
             MaxWidth="300"
             MaxHeight="50"
             Content="{Binding InfoLabel}"
+            Visibility="Visible" />
+        <Label
+            x:Name="LoopLabel"
+            Grid.Row="1"
+            Grid.Column="1"
+            MaxWidth="300"
+            MaxHeight="50"
+            Content="{Binding LoopLabel}"
             Visibility="Visible" />
         <Button
             x:Name="StopButton"

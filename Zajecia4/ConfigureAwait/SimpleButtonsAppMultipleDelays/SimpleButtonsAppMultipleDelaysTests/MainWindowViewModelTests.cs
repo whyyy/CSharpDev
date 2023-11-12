@@ -22,7 +22,7 @@ namespace SimpleButtonsAppMultipleDelaysTests
 
             //when
 
-            var result = await sut.IsInfiniteLoopRunningAsync(CancellationToken.None);
+            var result = await sut.StartDrawingLuckyNumber(CancellationToken.None);
 
             //then
 
@@ -38,7 +38,7 @@ namespace SimpleButtonsAppMultipleDelaysTests
 
             //when
 
-            var result = async () => await sut.IsInfiniteLoopRunningAsync(cancellationTokenSource.Token);
+            var result = async () => await sut.StartDrawingLuckyNumber(cancellationTokenSource.Token);
 
             //then
 
@@ -54,7 +54,7 @@ namespace SimpleButtonsAppMultipleDelaysTests
 
             //when
 
-            var result = async () => await sut.StartInfiniteLoop(cancellationTokenSource.Token);
+            var result = async () => await sut.StartDrawingLoop(cancellationTokenSource.Token);
 
             //then
 
