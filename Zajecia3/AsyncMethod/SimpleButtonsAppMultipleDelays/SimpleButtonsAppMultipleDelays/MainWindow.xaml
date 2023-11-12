@@ -1,0 +1,49 @@
+﻿<Window
+    x:Class="SimpleButtonsApp.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:SimpleButtonsApp"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="MainWindow"
+    Width="800"
+    Height="450"
+    mc:Ignorable="d">
+    <Window.DataContext>
+        <local:MainWindowViewModel />
+    </Window.DataContext>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="200" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Button
+            x:Name="StartButton"
+            Grid.Column="0"
+            MaxWidth="150"
+            MaxHeight="50"
+            Command="{Binding StartMultipleCommand}">
+            <TextBlock>Start Multiple</TextBlock>
+        </Button>
+        <Label
+            x:Name="InfoLabel"
+            Grid.Column="1"
+            MaxWidth="300"
+            MaxHeight="50"
+            Content="{Binding InfoLabel}"
+            Visibility="Visible" />
+        <Button
+            x:Name="StopButton"
+            Grid.Column="2"
+            MaxWidth="150"
+            MaxHeight="50"
+            Command="{Binding StopCommand}">
+            <TextBlock>Stop</TextBlock>
+        </Button>
+    </Grid>
+</Window>
