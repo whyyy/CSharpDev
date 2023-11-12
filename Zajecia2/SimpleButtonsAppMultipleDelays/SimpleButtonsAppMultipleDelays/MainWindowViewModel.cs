@@ -3,19 +3,16 @@
     using CommunityToolkit.Mvvm.ComponentModel;
     using CommunityToolkit.Mvvm.Input;
     using System;
-    using System.Collections.Concurrent;
-    using System.Linq;
+    using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
 
     public partial class MainWindowViewModel : ObservableObject
     {
         private CancellationTokenSource cancellationTokenSource;
-        private ConcurrentDictionary<int, Task> runningTasks = new ConcurrentDictionary<int, Task>();
-        private ConcurrentDictionary<int,string> informationToPrint = new ConcurrentDictionary<int, string>();
 
         [ObservableProperty]
-        private string infoLabel;
+        private string _infoLabel;
 
         public MainWindowViewModel()
         {
@@ -27,17 +24,7 @@
             this.cancellationTokenSource = new CancellationTokenSource();
             InfoLabel = "Start multiple button was clicked";
             var token = this.cancellationTokenSource.Token;
-            var firstInfiniteLoop = StartInfiniteLoop(token);
-            var secondInfiniteLoop = StartInfiniteLoop(token);
-            runningTasks.TryAdd(0, firstInfiniteLoop);
-            runningTasks.TryAdd(1, secondInfiniteLoop);
-
-            while(runningTasks.Count > 0)
-            {
-                var finishedTask = await Task.WhenAny(runningTasks.Values);
-                var taskToRemove = runningTasks.First(t => t.Value == finishedTask);
-                runningTasks.TryRemove(taskToRemove);
-            }
+            await StartMultipleDelaysAsync(token);
         }
 
         [RelayCommand]
@@ -46,40 +33,35 @@
             await Task.Run(() => this.cancellationTokenSource?.Cancel());
         }
 
-        public async Task StartInfiniteLoop(CancellationToken cancellationToken)
+        private async Task StartMultipleDelaysAsync(CancellationToken cancellationToken)
         {
+            var longDelayTask = Task.Delay(TimeSpan.FromSeconds(15), cancellationToken);
+            var shortDelayTask = Task.Delay(TimeSpan.FromSeconds(5), cancellationToken);
+            var mediumDelayTask = Task.Delay(TimeSpan.FromSeconds(10), cancellationToken);
+
+            var delayTasks = new List<Task> { shortDelayTask, mediumDelayTask, longDelayTask };
+
+            delayTasks.ForEach(t => OutputPrinter.Print($"Id: {t.Id}, status: {t.Status}, time: {DateTime.Now}"));
+
             try
             {
-                while (await IsInfiniteLoopRunningAsync(cancellationToken))
+                while (delayTasks.Count > 0)
                 {
+                    var delayFinishedTask = await Task.WhenAny(delayTasks);
+
+                    await delayFinishedTask;
+                    OutputPrinter.Print($"Finished task, id: {delayFinishedTask.Id}, "
+                                        + $"status: {delayFinishedTask.Status}, "
+                                        + $"time: {DateTime.Now}");
+                    delayTasks.Remove(delayFinishedTask);
                 }
-                
             }
-            catch (OperationCanceledException ex)
+            catch (TaskCanceledException ex)
             {
                 InfoLabel = $"Process was cancelled";
+                OutputPrinter.Print("Remaining tasks:");
+                delayTasks.ForEach(t => OutputPrinter.Print($"Id: {t.Id}, status: {t.Status}, time: {DateTime.Now}"));
             }
-        }
-
-        public async Task<bool> IsInfiniteLoopRunningAsync(CancellationToken cancellationToken)
-        {
-            return await Task.Run(() =>
-            {
-                while (!cancellationToken.IsCancellationRequested)
-                {
-                    for (int i = 0; i < 5; i++)
-                    {
-                        var information = $"Task: {Task.CurrentId}, key: {i}, collection count: {this.informationToPrint.Count}";
-                        var hasAdded = this.informationToPrint.TryAdd(i, information);
-                        if (hasAdded)
-                        {
-                            OutputPrinter.Print($"Value: {this.informationToPrint[i]}");
-                        }
-                    }
-                }
-                cancellationToken.ThrowIfCancellationRequested();
-                return false;
-            }, cancellationToken);
         }
     }
 }
