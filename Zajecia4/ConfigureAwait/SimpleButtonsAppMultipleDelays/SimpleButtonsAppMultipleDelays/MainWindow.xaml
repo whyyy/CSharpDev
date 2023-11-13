@@ -9,9 +9,6 @@
     Width="800"
     Height="450"
     mc:Ignorable="d">
-    <Window.DataContext>
-        <local:MainWindowViewModel />
-    </Window.DataContext>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
@@ -28,9 +25,10 @@
             Grid.Column="0"
             MaxWidth="150"
             MaxHeight="50"
-            Command="{Binding StartDrawingCommand}">
+            Click="StartDrawing">
             <TextBlock>Start Drawing</TextBlock>
         </Button>
+
         <Label
             x:Name="InfoLabel"
             Grid.Column="1"
@@ -51,7 +49,7 @@
             Grid.Column="2"
             MaxWidth="150"
             MaxHeight="50"
-            Command="{Binding StopCommand}">
+            Click="StopDrawing">
             <TextBlock>Stop</TextBlock>
         </Button>
     </Grid>
