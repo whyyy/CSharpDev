@@ -1,10 +1,9 @@
-﻿using System.Threading.Tasks;
-using System.Threading;
-using System.Windows;
-using System;
-
-namespace SimpleButtonsApp
+﻿namespace SimpleButtonsApp
 {
+    using System.Threading.Tasks;
+    using System.Threading;
+    using System.Windows;
+    using System;
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
@@ -51,7 +50,7 @@ namespace SimpleButtonsApp
 
                 }
                 
-            }).ConfigureAwait(false);
+            }, cancellationToken).ConfigureAwait(false);
             
             return false;
         }
