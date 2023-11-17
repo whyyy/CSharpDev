@@ -1,35 +1,36 @@
 ﻿namespace SimpleButtonsApp
 {
-    using System.Threading.Tasks;
-    using System.Threading;
-    using System.Windows;
     using System;
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
+    using System.Threading;
+    using System.Threading.Tasks;
+    using System.Windows;
+
     public partial class MainWindow : Window
     {
         private CancellationTokenSource cancellationTokenSource;
         public MainWindow()
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
 
-        private void StartDrawing(object sender, RoutedEventArgs e)
+        private async void StartDrawing(object sender, RoutedEventArgs e)
         {
             this.cancellationTokenSource = new CancellationTokenSource();
-            StartDrawingLuckyNumber(this.cancellationTokenSource.Token).ConfigureAwait(false);
+            await this.StartDrawingLuckyNumber(this.cancellationTokenSource.Token);
+
         }
 
         private void StopDrawing(object sender, RoutedEventArgs e)
         {
-            this.cancellationTokenSource.Cancel();
+            this.cancellationTokenSource?.Cancel();
             this.InfoLabel.Content = "Drawing finished";
         }
 
         private async Task<bool> StartDrawingLuckyNumber(CancellationToken cancellationToken)
         {
             var random = new Random();
+            int luckyNumber = 0;
+
             await Task.Run(() =>
             {
                 try
@@ -38,20 +39,27 @@
                     {
                         //this.Dispatcher.Invoke(() =>
                         //{
-                            this.InfoLabel.Content = "Drawing is in progress";
-                            this.LoopLabel.Content = $"Lucky number is: {random.Next(1, 99)}";
+                        luckyNumber = random.Next(1, 99);
+                        Task.Delay(100, cancellationToken);
                         //});
                     }
+
                     cancellationToken.ThrowIfCancellationRequested();
                 }
-
                 catch (OperationCanceledException ex)
                 {
 
                 }
+                catch (Exception ex)
+                {
+
+                }
                 
-            }, cancellationToken).ConfigureAwait(false);
-            
+            }, cancellationToken);
+
+            this.InfoLabel.Content = "Drawing is in progress";
+            this.LoopLabel.Content = $"Lucky number is: {luckyNumber}";
+
             return false;
         }
     }
