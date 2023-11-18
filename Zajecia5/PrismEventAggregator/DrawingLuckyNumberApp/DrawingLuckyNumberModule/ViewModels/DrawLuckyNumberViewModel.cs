@@ -7,7 +7,7 @@
     using Prism.Events;
     using Prism.Mvvm;
 
-    internal class DrawLuckyNumberViewModel : BindableBase
+    public class DrawLuckyNumberViewModel : BindableBase
     {
         private CancellationTokenSource cancellationTokenSource;
         private readonly IEventAggregator eventAggregator;
@@ -22,7 +22,7 @@
         public DelegateCommand StartDrawingCommand { get; private set; }
         public DelegateCommand StopDrawingCommand { get; private set; }
 
-        private async void StartDrawing()
+        public async void StartDrawing()
         {
             this.eventAggregator.GetEvent<IsDrawingInProgressEvent>().Publish(true);
             this.eventAggregator.GetEvent<LuckyNumberDrawnEvent>().Publish(0);
@@ -30,23 +30,23 @@
             await this.StartDrawingLuckyNumber(this.cancellationTokenSource.Token);
         }
 
-        private void StopDrawing()
+        public void StopDrawing()
         {
             this.eventAggregator.GetEvent<IsDrawingInProgressEvent>().Publish(false);
             this.cancellationTokenSource?.Cancel();
         }
 
-        private async Task<bool> StartDrawingLuckyNumber(CancellationToken cancellationToken)
+        public async Task<int> StartDrawingLuckyNumber(CancellationToken cancellationToken)
         {
             var random = new Random();
-
+            var luckyNumber = 0;
             await Task.Run(() =>
                            {
                                try
                                {
                                    while (!cancellationToken.IsCancellationRequested)
                                    {
-                                       var luckyNumber = random.Next(1, 99);
+                                       luckyNumber = random.Next(1, 99);
                                        this.eventAggregator.GetEvent<LuckyNumberDrawnEvent>().Publish(luckyNumber);
                                        Task.Delay(100, cancellationToken);
                                    }
@@ -55,13 +55,16 @@
                                }
                                catch (OperationCanceledException ex)
                                {
+                                   return luckyNumber;
                                }
                                catch (Exception ex)
                                {
                                }
+
+                               return luckyNumber;
                            }, cancellationToken);
 
-            return false;
+            return luckyNumber;
         }
     }
 }

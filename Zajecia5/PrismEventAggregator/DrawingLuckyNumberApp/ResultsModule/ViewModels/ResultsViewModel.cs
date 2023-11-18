@@ -15,6 +15,18 @@
             eventAggregator.GetEvent<LuckyNumberDrawnEvent>().Subscribe(this.LuckyNumberReceived);
         }
 
+        public string DrawingStatus
+        {
+            get => this.drawingStatus;
+            set => SetProperty(ref this.drawingStatus, value);
+        }
+
+        public string LuckyNumber
+        {
+            get => this.luckyNumber;
+            set => SetProperty(ref this.luckyNumber, value);
+        }
+
         private void DrawingStatusReceived(bool receivedDrawingStatus)
         {
             this.DrawingStatus = receivedDrawingStatus ? "Drawing is in progress" : "";
@@ -29,18 +41,6 @@
             }
 
             this.LuckyNumber = $"Lucky number is: {receivedLuckyNumber}";
-        }
-
-        public string DrawingStatus
-        {
-            get => this.drawingStatus;
-            set => SetProperty(ref this.drawingStatus, value);
-        }
-
-        public string LuckyNumber
-        {
-            get => this.luckyNumber;
-            set => SetProperty(ref this.luckyNumber, value);
         }
     }
 }
