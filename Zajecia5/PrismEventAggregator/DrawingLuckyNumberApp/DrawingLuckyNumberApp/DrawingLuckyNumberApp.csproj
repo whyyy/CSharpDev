@@ -11,4 +11,13 @@
     <PackageReference Include="Prism.Wpf" Version="8.1.97" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\DrawingLuckyNumberModule\DrawingLuckyNumberModule.csproj" />
+    <ProjectReference Include="..\ResultsModule\ResultsModule.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ViewModels\" />
+  </ItemGroup>
+
 </Project>

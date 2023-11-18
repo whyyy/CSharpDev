@@ -1,50 +1,44 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows;
-using Prism.Commands;
-using Prism.Mvvm;
-
-namespace DrawingLuckyNumberApp.ViewModel
+﻿namespace DrawingLuckyNumberModule.ViewModels
 {
-    public class MainWindowViewModel : BindableBase
+    using System;
+    using System.Threading.Tasks;
+    using DrawingLuckyNumber.Core;
+    using Prism.Commands;
+    using Prism.Events;
+    using Prism.Mvvm;
+
+    internal class DrawLuckyNumberViewModel : BindableBase
     {
         private CancellationTokenSource cancellationTokenSource;
-        private string infoLabel;
-        private string loopLabel;
+        private readonly IEventAggregator eventAggregator;
 
-        public string InfoLabel
+        public DrawLuckyNumberViewModel(IEventAggregator eventAggregator)
         {
-            get => this.infoLabel;
-            set => SetProperty(ref this.infoLabel, value);
-        }
-
-        public string LoopLabel
-        {
-            get => this.loopLabel;
-            set => SetProperty(ref this.loopLabel, value);
+            this.StartDrawingCommand = new DelegateCommand(this.StartDrawing);
+            this.StopDrawingCommand = new DelegateCommand(this.StopDrawing);
+            this.eventAggregator = eventAggregator;
         }
 
         public DelegateCommand StartDrawingCommand { get; private set; }
         public DelegateCommand StopDrawingCommand { get; private set; }
 
-        private async void StartDrawing(object sender, RoutedEventArgs e)
+        private async void StartDrawing()
         {
+            this.eventAggregator.GetEvent<IsDrawingInProgressEvent>().Publish(true);
+            this.eventAggregator.GetEvent<LuckyNumberDrawnEvent>().Publish(0);
             this.cancellationTokenSource = new CancellationTokenSource();
             await this.StartDrawingLuckyNumber(this.cancellationTokenSource.Token);
-
         }
 
-        private void StopDrawing(object sender, RoutedEventArgs e)
+        private void StopDrawing()
         {
+            this.eventAggregator.GetEvent<IsDrawingInProgressEvent>().Publish(false);
             this.cancellationTokenSource?.Cancel();
-            this.InfoLabel = "Drawing finished";
         }
 
         private async Task<bool> StartDrawingLuckyNumber(CancellationToken cancellationToken)
         {
             var random = new Random();
-            int luckyNumber = 0;
 
             await Task.Run(() =>
                            {
@@ -52,28 +46,20 @@ namespace DrawingLuckyNumberApp.ViewModel
                                {
                                    while (!cancellationToken.IsCancellationRequested)
                                    {
-                                       //this.Dispatcher.Invoke(() =>
-                                       //{
-                                       luckyNumber = random.Next(1, 99);
+                                       var luckyNumber = random.Next(1, 99);
+                                       this.eventAggregator.GetEvent<LuckyNumberDrawnEvent>().Publish(luckyNumber);
                                        Task.Delay(100, cancellationToken);
-                                       //});
                                    }
 
                                    cancellationToken.ThrowIfCancellationRequested();
                                }
                                catch (OperationCanceledException ex)
                                {
-
                                }
                                catch (Exception ex)
                                {
-
                                }
-
                            }, cancellationToken);
-
-            this.InfoLabel = "Drawing is in progress";
-            this.LoopLabel = $"Lucky number is: {luckyNumber}";
 
             return false;
         }
