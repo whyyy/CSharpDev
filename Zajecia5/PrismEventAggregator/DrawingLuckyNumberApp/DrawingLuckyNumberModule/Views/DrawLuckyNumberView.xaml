@@ -1,0 +1,35 @@
+﻿<UserControl
+    x:Class="DrawingLuckyNumberModule.Views.DrawLuckyNumberView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:vm="clr-namespace:DrawingLuckyNumberModule.ViewModels">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="200" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Button
+            x:Name="StartButton"
+            Grid.Column="0"
+            MaxWidth="300"
+            MaxHeight="50"
+            Command="{Binding StartDrawingCommand}">
+            <TextBlock>Start Drawing</TextBlock>
+        </Button>
+
+        <Button
+            x:Name="StopButton"
+            Grid.Row="0"
+            Grid.Column="2"
+            MaxWidth="300"
+            MaxHeight="50"
+            Command="{Binding StopDrawingCommand}">
+            <TextBlock>Stop</TextBlock>
+        </Button>
+    </Grid>
+</UserControl>
