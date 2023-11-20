@@ -1,16 +1,14 @@
-﻿using DrawingLuckyNumberModule.ViewModels;
+﻿namespace DrawingLuckyNumberModule.Views;
 
-namespace DrawingLuckyNumberModule.Views
+using System.Windows.Controls;
+using DrawingLuckyNumber.Infrastructure;
+using ViewModels;
+
+public partial class DrawLuckyNumberView : UserControl
 {
-    using System.Windows.Controls;
-    using DrawingLuckyNumber.Infrastructure;
-
-    public partial class DrawLuckyNumberView : UserControl
+    public DrawLuckyNumberView()
     {
-        public DrawLuckyNumberView()
-        {
-            this.InitializeComponent();
-            DataContext = new DrawLuckyNumberViewModel(ShellBootstrapper.EventAggregator);
-        }
+        this.InitializeComponent();
+        DataContext = new DrawLuckyNumberViewModel(ShellBootstrapper.EventAggregator);
     }
 }

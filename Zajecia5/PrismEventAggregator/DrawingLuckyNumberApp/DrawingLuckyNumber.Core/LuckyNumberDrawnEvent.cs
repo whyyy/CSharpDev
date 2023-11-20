@@ -1,8 +1,7 @@
-﻿namespace DrawingLuckyNumber.Core
-{
-    using Prism.Events;
+﻿namespace DrawingLuckyNumber.Core;
 
-    public class LuckyNumberDrawnEvent : PubSubEvent<int>
-    {
-    }
+using Prism.Events;
+
+public class LuckyNumberDrawnEvent : PubSubEvent<int>
+{
 }

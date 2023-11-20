@@ -1,14 +1,13 @@
-﻿namespace DrawingLuckyNumber.Infrastructure
+﻿namespace DrawingLuckyNumber.Infrastructure;
+
+using Prism.Events;
+
+public class ShellBootstrapper
 {
-    using Prism.Events;
-
-    public class ShellBootstrapper
+    static ShellBootstrapper()
     {
-        static ShellBootstrapper()
-        {
-            EventAggregator = new EventAggregator();
-        }
-
-        public static IEventAggregator EventAggregator { get; set; }
+        EventAggregator = new EventAggregator();
     }
+
+    public static IEventAggregator EventAggregator { get; set; }
 }

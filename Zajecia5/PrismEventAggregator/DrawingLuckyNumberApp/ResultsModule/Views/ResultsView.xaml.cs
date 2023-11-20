@@ -1,15 +1,14 @@
-﻿namespace ResultsModule.Views
-{
-    using System.Windows.Controls;
-    using DrawingLuckyNumber.Infrastructure;
-    using ViewModels;
+﻿namespace ResultsModule.Views;
 
-    public partial class ResultsView : UserControl
+using System.Windows.Controls;
+using DrawingLuckyNumber.Infrastructure;
+using ViewModels;
+
+public partial class ResultsView : UserControl
+{
+    public ResultsView()
     {
-        public ResultsView()
-        {
-            this.InitializeComponent();
-            DataContext = new ResultsViewModel(ShellBootstrapper.EventAggregator);
-        }
+        this.InitializeComponent();
+        DataContext = new ResultsViewModel(ShellBootstrapper.EventAggregator);
     }
 }
