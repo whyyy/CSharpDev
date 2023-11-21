@@ -5,10 +5,11 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="200" />
+            <ColumnDefinition Width="300" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
@@ -17,6 +18,7 @@
             Grid.Column="1"
             MaxWidth="300"
             MaxHeight="50"
+            HorizontalAlignment="Center"
             Content="{Binding DrawingStatus}"
             Visibility="Visible" />
         <Label
@@ -25,7 +27,17 @@
             Grid.Column="1"
             MaxWidth="300"
             MaxHeight="50"
+            HorizontalAlignment="Center"
             Content="{Binding LuckyNumber}"
+            Visibility="Visible" />
+        <Label
+            x:Name="DrawingTotalTimeInSeconds"
+            Grid.Row="2"
+            Grid.Column="1"
+            MaxWidth="300"
+            MaxHeight="50"
+            HorizontalAlignment="Center"
+            Content="{Binding DrawingTotalTimeInSeconds}"
             Visibility="Visible" />
     </Grid>
 </UserControl>
