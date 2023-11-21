@@ -54,6 +54,7 @@ public class DrawLuckyNumberViewModel : BindableBase
     public void StopDrawing()
     {
         this.StartIsEnabled = true;
+        this.StopIsEnabled = false;
         this.eventAggregator.GetEvent<IsDrawingInProgressEvent>().Publish(false);
         this.cancellationTokenSource?.Cancel();
         var drawingTotalTimeInSeconds = (this.StopDateTimeValue - this.StartDateTimeValue).TotalSeconds;

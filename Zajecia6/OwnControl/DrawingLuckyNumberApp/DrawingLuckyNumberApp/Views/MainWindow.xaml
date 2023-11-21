@@ -7,7 +7,7 @@
     xmlns:drawingResults="clr-namespace:ResultsModule.Views;assembly=ResultsModule"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Width="800"
-    Height="450"
+    Height="550"
     mc:Ignorable="d">
     <Grid>
         <Grid.ColumnDefinitions>

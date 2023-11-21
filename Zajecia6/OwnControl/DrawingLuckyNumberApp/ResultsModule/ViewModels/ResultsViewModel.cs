@@ -7,6 +7,7 @@ using Prism.Mvvm;
 public class ResultsViewModel : BindableBase
 {
     private string drawingStatus;
+    private bool isDrawing;
     private string luckyNumber;
     private string drawingTotalTimeInSeconds;
 
@@ -23,6 +24,12 @@ public class ResultsViewModel : BindableBase
         set => SetProperty(ref this.drawingStatus, value);
     }
 
+    public bool IsDrawing
+    {
+        get => this.isDrawing;
+        set => SetProperty(ref this.isDrawing, value);
+    }
+
     public string LuckyNumber
     {
         get => this.luckyNumber;
@@ -37,6 +44,7 @@ public class ResultsViewModel : BindableBase
 
     private void DrawingStatusReceived(bool receivedDrawingStatus)
     {
+        this.IsDrawing = receivedDrawingStatus;
         this.DrawingStatus = receivedDrawingStatus ? "Drawing is in progress" : "";
     }
 
@@ -48,7 +56,7 @@ public class ResultsViewModel : BindableBase
             return;
         }
 
-        this.LuckyNumber = $"Lucky number is: {receivedLuckyNumber}";
+        this.LuckyNumber = receivedLuckyNumber.ToString();
     }
 
     private void DrawingTotalTimeInSecondsReceived(double totalTimeInSeconds)

@@ -24,6 +24,8 @@ public class DrawLuckyNumberViewModelTests
     public void Should_publish_events_when_start_drawing()
     {
         //given
+        var drawingTotalTimeInSecondsEvent = Substitute.For<DrawingTotalTimeInSecondsEvent>();
+        this.eventAggregator.GetEvent<DrawingTotalTimeInSecondsEvent>().Returns(drawingTotalTimeInSecondsEvent);
         var isDrawingInProgressEvent = Substitute.For<IsDrawingInProgressEvent>();
         this.eventAggregator.GetEvent<IsDrawingInProgressEvent>().Returns(isDrawingInProgressEvent);
         var luckyNumberDrawnEvent = Substitute.For<LuckyNumberDrawnEvent>();
@@ -35,6 +37,7 @@ public class DrawLuckyNumberViewModelTests
         //then
         isDrawingInProgressEvent.Received().Publish(true);
         luckyNumberDrawnEvent.Received().Publish(Arg.Any<int>());
+        drawingTotalTimeInSecondsEvent.Received().Publish(0);
     }
 
     [Test]
@@ -73,12 +76,15 @@ public class DrawLuckyNumberViewModelTests
     {
         //given
         var isDrawingInProgressEvent = Substitute.For<IsDrawingInProgressEvent>();
+        var drawingTotalTimeInSeconds = Substitute.For<DrawingTotalTimeInSecondsEvent>();
         this.eventAggregator.GetEvent<IsDrawingInProgressEvent>().Returns(isDrawingInProgressEvent);
+        this.eventAggregator.GetEvent<DrawingTotalTimeInSecondsEvent>().Returns(drawingTotalTimeInSeconds);
 
         //when
         this.sut.StopDrawing();
 
         //then
         isDrawingInProgressEvent.Received().Publish(false);
+        drawingTotalTimeInSeconds.Received().Publish(0);
     }
 }

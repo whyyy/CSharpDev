@@ -1,8 +1,7 @@
 ﻿<UserControl
-    x:Class="ResultsModule.Views.ResultsView"
+    x:Class="ResultsModule.Controls.LuckyNumberControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:resultsControls="clr-namespace:ResultsModule.Controls">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
@@ -12,19 +11,25 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <resultsControls:LuckyNumberControl
-            Grid.Row="0"
-            Grid.Column="1"
-            IsDrawing="{Binding IsDrawing, Mode=TwoWay}" />
         <Label
-            x:Name="DrawingTotalTimeInSeconds"
+            Grid.Column="1"
+            HorizontalAlignment="Center"
+            Content="{Binding DrawingStatus}"
+            FontSize="12" />
+        <Label
             Grid.Row="1"
             Grid.Column="1"
-            MaxWidth="300"
-            MaxHeight="50"
             HorizontalAlignment="Center"
-            Content="{Binding DrawingTotalTimeInSeconds}"
-            Visibility="Visible" />
+            Content="Lucky Number:"
+            FontSize="12" />
+        <Label
+            Grid.Row="2"
+            Grid.Column="1"
+            HorizontalAlignment="Center"
+            Content="{Binding LuckyNumber}"
+            FontSize="18"
+            FontStyle="Oblique" />
     </Grid>
 </UserControl>
