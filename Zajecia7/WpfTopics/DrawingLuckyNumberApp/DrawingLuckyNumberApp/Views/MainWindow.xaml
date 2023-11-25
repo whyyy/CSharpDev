@@ -8,7 +8,15 @@
     Width="800"
     Height="550"
     mc:Ignorable="d">
-    <Grid>
+    <Window.Resources>
+        <ResourceDictionary>
+            <Style x:Key="ApplicationBackgroundStyle" TargetType="Grid">
+                <Setter Property="Background" Value="LightGray" />
+                <Setter Property="Cursor" Value="Hand" />
+            </Style>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid Style="{StaticResource ApplicationBackgroundStyle}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="25" />
             <ColumnDefinition Width="*" />

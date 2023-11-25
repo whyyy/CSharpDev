@@ -5,6 +5,13 @@
     xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:behaviors="clr-namespace:DrawingLuckyNumberApp.UI.Behaviors"
     xmlns:controls="clr-namespace:DrawingLuckyNumberApp.UI.Controls">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Styling/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -23,7 +30,8 @@
             MaxHeight="50"
             ClickDateTimeValue="{Binding StartDateTimeValue, Mode=OneWayToSource}"
             Command="{Binding StartDrawingCommand}"
-            IsEnabled="{Binding StartIsEnabled}">
+            IsEnabled="{Binding StartIsEnabled}"
+            Style="{StaticResource DarkButtonStyle}">
             <b:Interaction.Behaviors>
                 <behaviors:ButtonHoverBehavior />
             </b:Interaction.Behaviors>
@@ -38,7 +46,8 @@
             MaxHeight="50"
             ClickDateTimeValue="{Binding StopDateTimeValue, Mode=OneWayToSource}"
             Command="{Binding StopDrawingCommand}"
-            IsEnabled="{Binding StopIsEnabled}">
+            IsEnabled="{Binding StopIsEnabled}"
+            Style="{StaticResource LightButtonStyle}">
             <b:Interaction.Behaviors>
                 <behaviors:ButtonHoverBehavior />
             </b:Interaction.Behaviors>
