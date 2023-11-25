@@ -1,4 +1,4 @@
-﻿namespace SimpleButtonsApp
+﻿namespace DrawingLuckyNumberApp
 {
     using System.Windows;
 
