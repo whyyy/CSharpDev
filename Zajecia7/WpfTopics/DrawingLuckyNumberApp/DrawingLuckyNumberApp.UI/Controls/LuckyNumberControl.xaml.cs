@@ -37,7 +37,7 @@ public partial class LuckyNumberControl : UserControl
         this.IsDrawing = isDrawing;
         if (isDrawing)
         {
-            this.Background = new SolidColorBrush(Color.FromRgb(252, 127, 3));
+            this.Background = new SolidColorBrush(Color.FromRgb(75, 100, 150));
             return;
         }
         this.Background = new SolidColorBrush(Color.FromRgb(0, 155, 0));
