@@ -1,12 +1,33 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <Style x:Key="DarkButtonStyle" TargetType="Button">
+
+    <Style x:Key="RoundedButtonStyle" TargetType="Button">
+        <Style.Resources>
+            <Style TargetType="Border">
+                <Setter Property="CornerRadius" Value="30" />
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Cursor" Value="Pen" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </Style.Resources>
+    </Style>
+
+    <Style
+        x:Key="DarkButtonStyle"
+        BasedOn="{StaticResource RoundedButtonStyle}"
+        TargetType="Button">
         <Setter Property="BorderBrush" Value="Black" />
         <Setter Property="Foreground" Value="DarkSlateGray" />
         <Setter Property="FontWeight" Value="DemiBold" />
         <Setter Property="BorderThickness" Value="1" />
+
     </Style>
 
-    <Style x:Key="LightButtonStyle" TargetType="Button">
+    <Style
+        x:Key="LightButtonStyle"
+        BasedOn="{StaticResource RoundedButtonStyle}"
+        TargetType="Button">
         <Setter Property="BorderBrush" Value="DarkOrange" />
         <Setter Property="Foreground" Value="LightGray" />
         <Setter Property="FontWeight" Value="Light" />

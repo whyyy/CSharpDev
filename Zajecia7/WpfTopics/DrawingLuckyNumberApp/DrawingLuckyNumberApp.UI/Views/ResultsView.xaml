@@ -7,6 +7,17 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../Styling/Styles.xaml" />
+                <ResourceDictionary>
+                    <Style TargetType="controls:LuckyNumberControl">
+                        <Style.Triggers>
+                            <Trigger Property="IsDrawing" Value="True">
+                                <Trigger.Setters>
+                                    <Setter Property="Cursor" Value="Wait" />
+                                </Trigger.Setters>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
