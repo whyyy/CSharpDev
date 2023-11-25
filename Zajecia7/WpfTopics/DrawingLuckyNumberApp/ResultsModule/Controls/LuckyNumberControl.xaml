@@ -1,0 +1,35 @@
+﻿<UserControl
+    x:Class="ResultsModule.Controls.LuckyNumberControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="300" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Label
+            Grid.Column="1"
+            HorizontalAlignment="Center"
+            Content="{Binding DrawingStatus}"
+            FontSize="12" />
+        <Label
+            Grid.Row="1"
+            Grid.Column="1"
+            HorizontalAlignment="Center"
+            Content="Lucky Number:"
+            FontSize="12" />
+        <Label
+            Grid.Row="2"
+            Grid.Column="1"
+            HorizontalAlignment="Center"
+            Content="{Binding LuckyNumber}"
+            FontSize="18"
+            FontStyle="Oblique" />
+    </Grid>
+</UserControl>

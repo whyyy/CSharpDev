@@ -1,0 +1,30 @@
+﻿<UserControl
+    x:Class="ResultsModule.Views.ResultsView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:resultsControls="clr-namespace:ResultsModule.Controls">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="300" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <resultsControls:LuckyNumberControl
+            Grid.Row="0"
+            Grid.Column="1"
+            IsDrawing="{Binding IsDrawing, Mode=TwoWay}" />
+        <Label
+            x:Name="DrawingTotalTimeInSeconds"
+            Grid.Row="1"
+            Grid.Column="1"
+            MaxWidth="300"
+            MaxHeight="50"
+            HorizontalAlignment="Center"
+            Content="{Binding DrawingTotalTimeInSeconds}"
+            Visibility="Visible" />
+    </Grid>
+</UserControl>
