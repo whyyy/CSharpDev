@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0-windows</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <UseWPF>true</UseWPF>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\DrawingLuckyNumber.Infrastructure\DrawingLuckyNumber.Infrastructure.csproj" />
+      <ProjectReference Include="..\DrawingLuckyNumberModule\DrawingLuckyNumberModule.csproj" />
+      <ProjectReference Include="..\ResultsModule\ResultsModule.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Styling\" />
+    </ItemGroup>
+
+</Project>

@@ -1,8 +1,8 @@
-﻿namespace ResultsModule.Views;
+﻿namespace DrawingLuckyNumberApp.UI.Views;
 
 using System.Windows.Controls;
 using DrawingLuckyNumber.Infrastructure;
-using ViewModels;
+using ResultsModule.ViewModels;
 
 public partial class ResultsView : UserControl
 {

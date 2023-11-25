@@ -1,11 +1,11 @@
 ﻿<UserControl
-    x:Class="DrawingLuckyNumberModule.Views.DrawLuckyNumberView"
+    x:Class="DrawingLuckyNumberApp.UI.Views.DrawLuckyNumberView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
-    xmlns:behaviors="clr-namespace:DrawingLuckyNumberModule.Behaviors"
-    xmlns:controls="clr-namespace:DrawingLuckyNumberModule.Controls"
-    xmlns:vm="clr-namespace:DrawingLuckyNumberModule.ViewModels">
+    xmlns:behaviors="clr-namespace:DrawingLuckyNumberApp.UI.Behaviors"
+    xmlns:controls="clr-namespace:DrawingLuckyNumberApp.UI.Controls">
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />

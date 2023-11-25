@@ -1,4 +1,4 @@
-﻿namespace ResultsModule.Controls;
+﻿namespace DrawingLuckyNumberApp.UI.Controls;
 
 using System.Windows;
 using System.Windows.Controls;

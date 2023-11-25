@@ -1,8 +1,8 @@
-﻿namespace DrawingLuckyNumberModule.Views;
+﻿namespace DrawingLuckyNumberApp.UI.Views;
 
 using System.Windows.Controls;
 using DrawingLuckyNumber.Infrastructure;
-using ViewModels;
+using DrawingLuckyNumberModule.ViewModels;
 
 public partial class DrawLuckyNumberView : UserControl
 {

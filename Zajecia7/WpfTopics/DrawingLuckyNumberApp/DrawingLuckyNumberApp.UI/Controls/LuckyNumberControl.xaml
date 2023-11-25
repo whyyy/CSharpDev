@@ -1,5 +1,5 @@
 ﻿<UserControl
-    x:Class="ResultsModule.Controls.LuckyNumberControl"
+    x:Class="DrawingLuckyNumberApp.UI.Controls.LuckyNumberControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Grid>

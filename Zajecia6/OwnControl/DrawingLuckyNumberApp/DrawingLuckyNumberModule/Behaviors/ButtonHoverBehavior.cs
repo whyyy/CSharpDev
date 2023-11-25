@@ -1,4 +1,4 @@
-﻿namespace DrawingLuckyNumberModule.Behaviors
+﻿namespace DrawingLuckyNumberApp.UI.Behaviors
 {
     using System.Windows;
     using System.Windows.Controls;
@@ -16,7 +16,7 @@
             this.AssociatedObject.MouseEnter += this.ApplyHoverStyle;
             this.AssociatedObject.MouseLeave += this.RestoreStyle;
         }
-
+        
         protected override void OnDetaching()
         {
             base.OnDetaching();
@@ -25,7 +25,7 @@
         }
 
         private void ApplyHoverStyle(object sender,
-                                     MouseEventArgs args)
+                                 MouseEventArgs args)
         {
             this.thicknessToRestore = this.AssociatedObject.BorderThickness;
             this.fontSizeToRestore = this.AssociatedObject.FontSize;
