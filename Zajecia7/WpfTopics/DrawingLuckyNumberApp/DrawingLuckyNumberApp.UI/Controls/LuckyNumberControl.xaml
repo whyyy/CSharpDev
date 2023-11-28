@@ -1,7 +1,19 @@
 ﻿<UserControl
-    x:Class="ResultsModule.Controls.LuckyNumberControl"
+    x:Class="DrawingLuckyNumberApp.UI.Controls.LuckyNumberControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Styling/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <Style x:Key="StatusLabelStyle" TargetType="Label">
+                <Setter Property="FontWeight" Value="Light" />
+                <Setter Property="FontStyle" Value="Italic" />
+            </Style>
+        </ResourceDictionary>
+
+    </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
@@ -17,19 +29,22 @@
             Grid.Column="1"
             HorizontalAlignment="Center"
             Content="{Binding DrawingStatus}"
-            FontSize="12" />
+            FontSize="12"
+            Style="{StaticResource StatusLabelStyle}" />
         <Label
             Grid.Row="1"
             Grid.Column="1"
             HorizontalAlignment="Center"
             Content="Lucky Number:"
-            FontSize="12" />
+            FontSize="12"
+            Style="{StaticResource BoldLabelStyle}" />
         <Label
             Grid.Row="2"
             Grid.Column="1"
             HorizontalAlignment="Center"
             Content="{Binding LuckyNumber}"
-            FontSize="18"
-            FontStyle="Oblique" />
+            FontSize="20"
+            FontStyle="Oblique"
+            Style="{StaticResource BoldLabelStyle}" />
     </Grid>
 </UserControl>

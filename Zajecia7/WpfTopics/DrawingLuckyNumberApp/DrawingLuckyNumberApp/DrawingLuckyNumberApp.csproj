@@ -11,8 +11,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\DrawingLuckyNumberModule\DrawingLuckyNumberModule.csproj" />
-        <ProjectReference Include="..\ResultsModule\ResultsModule.csproj" />
+        <ProjectReference Include="..\DrawingLuckyNumberApp.UI\DrawingLuckyNumberApp.UI.csproj" />
     </ItemGroup>
 
 </Project>

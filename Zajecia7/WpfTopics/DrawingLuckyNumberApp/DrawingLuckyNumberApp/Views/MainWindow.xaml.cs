@@ -1,4 +1,4 @@
-﻿namespace DrawingLuckyNumberApp.View
+﻿namespace DrawingLuckyNumberApp.Views
 {
     using System.Windows;
 

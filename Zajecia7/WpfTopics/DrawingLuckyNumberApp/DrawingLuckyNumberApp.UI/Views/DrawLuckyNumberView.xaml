@@ -1,9 +1,18 @@
 ﻿<UserControl
-    x:Class="DrawingLuckyNumberModule.Views.DrawLuckyNumberView"
+    x:Class="DrawingLuckyNumberApp.UI.Views.DrawLuckyNumberView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:controls="clr-namespace:DrawingLuckyNumberModule.Controls"
-    xmlns:vm="clr-namespace:DrawingLuckyNumberModule.ViewModels">
+    xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:behaviors="clr-namespace:DrawingLuckyNumberApp.UI.Behaviors"
+    xmlns:controls="clr-namespace:DrawingLuckyNumberApp.UI.Controls">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Styling/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
@@ -21,7 +30,11 @@
             MaxHeight="50"
             ClickDateTimeValue="{Binding StartDateTimeValue, Mode=OneWayToSource}"
             Command="{Binding StartDrawingCommand}"
-            IsEnabled="{Binding StartIsEnabled}">
+            IsEnabled="{Binding StartIsEnabled}"
+            Style="{StaticResource DarkButtonStyle}">
+            <b:Interaction.Behaviors>
+                <behaviors:ButtonHoverBehavior />
+            </b:Interaction.Behaviors>
             <TextBlock>Start Drawing</TextBlock>
         </controls:ColorfulDateTimeButton>
 
@@ -33,7 +46,11 @@
             MaxHeight="50"
             ClickDateTimeValue="{Binding StopDateTimeValue, Mode=OneWayToSource}"
             Command="{Binding StopDrawingCommand}"
-            IsEnabled="{Binding StopIsEnabled}">
+            IsEnabled="{Binding StopIsEnabled}"
+            Style="{StaticResource LightButtonStyle}">
+            <b:Interaction.Behaviors>
+                <behaviors:ButtonHoverBehavior />
+            </b:Interaction.Behaviors>
             <TextBlock>Stop</TextBlock>
         </controls:ColorfulDateTimeButton>
     </Grid>

@@ -9,11 +9,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DrawingLuckyNumberModule", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ResultsModule", "ResultsModule\ResultsModule.csproj", "{B9D51268-46B5-43AA-A73C-6C0C514E71B1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DrawingLuckyNumber.Core", "DrawingLuckyNumber.Core\DrawingLuckyNumber.Core.csproj", "{E6ED83B3-5E9F-4440-986B-5611DA5B95A0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DrawingLuckyNumber.Core", "DrawingLuckyNumber.Core\DrawingLuckyNumber.Core.csproj", "{E6ED83B3-5E9F-4440-986B-5611DA5B95A0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DrawingLuckyNumber.Infrastructure", "DrawingLuckyNumber.Infrastructure\DrawingLuckyNumber.Infrastructure.csproj", "{23728056-C6C9-4F29-A6B1-47D7A2F899CC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DrawingLuckyNumber.Infrastructure", "DrawingLuckyNumber.Infrastructure\DrawingLuckyNumber.Infrastructure.csproj", "{23728056-C6C9-4F29-A6B1-47D7A2F899CC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DrawingLuckyNumberModule.Tests", "DrawingLuckyNumberModule.Tests\DrawingLuckyNumberModule.Tests.csproj", "{BC8CB19D-EB7F-4BC2-B98C-C1C5ED9375D2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DrawingLuckyNumberModule.Tests", "DrawingLuckyNumberModule.Tests\DrawingLuckyNumberModule.Tests.csproj", "{BC8CB19D-EB7F-4BC2-B98C-C1C5ED9375D2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DrawingLuckyNumberApp.UI", "DrawingLuckyNumberApp.UI\DrawingLuckyNumberApp.UI.csproj", "{EF8ACB84-2311-456F-B048-E14B1B80EC2F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{BC8CB19D-EB7F-4BC2-B98C-C1C5ED9375D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BC8CB19D-EB7F-4BC2-B98C-C1C5ED9375D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BC8CB19D-EB7F-4BC2-B98C-C1C5ED9375D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF8ACB84-2311-456F-B048-E14B1B80EC2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF8ACB84-2311-456F-B048-E14B1B80EC2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF8ACB84-2311-456F-B048-E14B1B80EC2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF8ACB84-2311-456F-B048-E14B1B80EC2F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
