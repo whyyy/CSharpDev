@@ -20,8 +20,8 @@
         protected override void OnDetaching()
         {
             base.OnDetaching();
-            this.AssociatedObject.MouseEnter -= this.ApplyHoverStyle;
             this.AssociatedObject.MouseLeave -= this.RestoreStyle;
+            this.AssociatedObject.MouseEnter -= this.ApplyHoverStyle;
         }
 
         private void ApplyHoverStyle(object sender,
