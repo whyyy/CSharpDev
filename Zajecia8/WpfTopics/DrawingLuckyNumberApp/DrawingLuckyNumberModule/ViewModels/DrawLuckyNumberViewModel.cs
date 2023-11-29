@@ -2,7 +2,7 @@
 
 using System;
 using System.Threading.Tasks;
-using DrawingLuckyNumber.Core;
+using DrawingLuckyNumber.Core.Events;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;

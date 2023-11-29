@@ -1,6 +1,6 @@
 namespace DrawingLuckyNumberModule.Tests;
 
-using DrawingLuckyNumber.Core;
+using DrawingLuckyNumber.Core.Events;
 using FluentAssertions;
 using NSubstitute;
 using NUnit.Framework;

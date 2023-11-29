@@ -1,6 +1,6 @@
 ﻿namespace ResultsModule.ViewModels;
 
-using DrawingLuckyNumber.Core;
+using DrawingLuckyNumber.Core.Events;
 using Prism.Events;
 using Prism.Mvvm;
 
