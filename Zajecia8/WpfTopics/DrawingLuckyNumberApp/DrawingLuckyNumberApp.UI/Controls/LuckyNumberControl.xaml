@@ -1,7 +1,9 @@
 ﻿<UserControl
     x:Class="DrawingLuckyNumberApp.UI.Controls.LuckyNumberControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="clr-namespace:DrawingLuckyNumberApp.UI.Converters"
+    xmlns:core="clr-namespace:DrawingLuckyNumber.Core;assembly=DrawingLuckyNumber.Core">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -28,7 +30,7 @@
         <Label
             Grid.Column="1"
             HorizontalAlignment="Center"
-            Content="{Binding DrawingStatus}"
+            Content="{Binding DrawingStatus, Converter={x:Static converters:DrawingStatusEnumToStringConverter.Converter}, ConverterParameter={x:Static core:DrawingStatus.InProgress}}"
             FontSize="12"
             Style="{StaticResource StatusLabelStyle}" />
         <Label
