@@ -30,7 +30,7 @@
         <Label
             Grid.Column="1"
             HorizontalAlignment="Center"
-            Content="{Binding DrawingStatus, Converter={x:Static converters:DrawingStatusEnumToStringConverter.Converter}, ConverterParameter={x:Static core:DrawingStatus.InProgress}}"
+            Content="{Binding DrawingStatus, Converter={x:Static converters:DrawingStatusEnumToStringConverter.Converter}, ConverterParameter={x:Static core:DrawingStatus.None}}"
             FontSize="12"
             Style="{StaticResource StatusLabelStyle}" />
         <Label

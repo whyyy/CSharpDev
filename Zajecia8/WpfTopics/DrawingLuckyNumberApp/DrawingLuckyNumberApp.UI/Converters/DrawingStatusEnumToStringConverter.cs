@@ -19,7 +19,12 @@
                               CultureInfo culture)
         {
             if (value == null || parameter == null) 
-                return string.Empty;
+                return "Incorrectly setting drawing status";
+
+            if ((DrawingStatus)value == (DrawingStatus)parameter)
+            {
+                return "Drawing was not done yet";
+            }
 
             var drawingStatus = (DrawingStatus)value;
 
