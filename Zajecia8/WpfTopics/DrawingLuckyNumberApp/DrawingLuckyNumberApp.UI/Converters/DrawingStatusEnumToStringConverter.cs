@@ -28,7 +28,7 @@
 
             var drawingStatus = (DrawingStatus)value;
 
-            return GetDrawingStatusText(drawingStatus);
+            return this.GetDrawingStatusText(drawingStatus);
         }
 
         public object ConvertBack(object value,
