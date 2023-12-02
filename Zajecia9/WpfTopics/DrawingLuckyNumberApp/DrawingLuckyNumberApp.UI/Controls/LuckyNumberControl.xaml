@@ -1,0 +1,52 @@
+﻿<UserControl
+    x:Class="DrawingLuckyNumberApp.UI.Controls.LuckyNumberControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="clr-namespace:DrawingLuckyNumberApp.UI.Converters"
+    xmlns:core="clr-namespace:DrawingLuckyNumber.Core;assembly=DrawingLuckyNumber.Core">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Styling/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <Style x:Key="StatusLabelStyle" TargetType="Label">
+                <Setter Property="FontWeight" Value="Light" />
+                <Setter Property="FontStyle" Value="Italic" />
+            </Style>
+        </ResourceDictionary>
+
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="300" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Label
+            Grid.Column="1"
+            HorizontalAlignment="Center"
+            Content="{Binding DrawingStatus, Converter={x:Static converters:DrawingStatusEnumToStringConverter.Converter}, ConverterParameter={x:Static core:DrawingStatus.None}}"
+            FontSize="12"
+            Style="{StaticResource StatusLabelStyle}" />
+        <Label
+            Grid.Row="1"
+            Grid.Column="1"
+            HorizontalAlignment="Center"
+            Content="Lucky Number:"
+            FontSize="12"
+            Style="{StaticResource BoldLabelStyle}" />
+        <Label
+            Grid.Row="2"
+            Grid.Column="1"
+            HorizontalAlignment="Center"
+            Content="{Binding LuckyNumber}"
+            FontSize="20"
+            FontStyle="Oblique"
+            Style="{StaticResource BoldLabelStyle}" />
+    </Grid>
+</UserControl>
