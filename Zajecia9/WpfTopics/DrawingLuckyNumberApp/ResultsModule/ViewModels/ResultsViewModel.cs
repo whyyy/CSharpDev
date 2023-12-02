@@ -1,6 +1,6 @@
 ﻿namespace ResultsModule.ViewModels;
 
-using System.Windows.Media;
+using System.Collections.ObjectModel;
 using DrawingLuckyNumber.Core;
 using DrawingLuckyNumber.Core.Events;
 using Prism.Events;
@@ -11,6 +11,7 @@ public class ResultsViewModel : BindableBase
     private DrawingStatus drawingStatus;
     private bool isDrawing;
     private string luckyNumber;
+    private ObservableCollection<string> luckyNumbers;
     private string drawingTotalTimeInSeconds;
 
     public ResultsViewModel(IEventAggregator eventAggregator)
@@ -19,6 +20,7 @@ public class ResultsViewModel : BindableBase
         eventAggregator.GetEvent<DrawingStatusEvent>().Subscribe(this.DrawingReceived);
         eventAggregator.GetEvent<LuckyNumberDrawnEvent>().Subscribe(this.LuckyNumberReceived);
         eventAggregator.GetEvent<DrawingTotalTimeInSecondsEvent>().Subscribe(this.DrawingTotalTimeInSecondsReceived);
+        eventAggregator.GetEvent<AllLuckyNumbersDrawnEvent>().Subscribe(this.AllLuckyNumbersDrawnReceived);
     }
 
     public DrawingStatus DrawingStatus
@@ -43,6 +45,12 @@ public class ResultsViewModel : BindableBase
     {
         get => this.drawingTotalTimeInSeconds;
         set => SetProperty(ref this.drawingTotalTimeInSeconds, value);
+    }
+
+    public ObservableCollection<string> LuckyNumbers
+    {
+        get => this.luckyNumbers;
+        set => SetProperty(ref this.luckyNumbers, value);
     }
 
     private void DrawingReceived(DrawingStatus receivedDrawingStatus)
@@ -71,5 +79,12 @@ public class ResultsViewModel : BindableBase
         }
 
         this.DrawingTotalTimeInSeconds = $"Drawing total time: {totalTimeInSeconds} seconds";
+    }
+
+    private void AllLuckyNumbersDrawnReceived(ObservableCollection<string> receivedNumbers)
+    {
+        this.LuckyNumbers ??= new ObservableCollection<string>();
+
+        this.LuckyNumbers = receivedNumbers;
     }
 }

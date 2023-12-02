@@ -1,6 +1,7 @@
 ﻿namespace DrawingLuckyNumberModule.ViewModels;
 
 using System;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using DrawingLuckyNumber.Core;
 using DrawingLuckyNumber.Core.Events;
@@ -16,6 +17,7 @@ public class DrawLuckyNumberViewModel : BindableBase
     private int maxNumber;
     private bool startIsEnabled;
     private bool stopIsEnabled;
+    private ObservableCollection<string> luckyNumbers = new ObservableCollection<string>();
 
     private readonly IEventAggregator eventAggregator;
 
@@ -54,6 +56,12 @@ public class DrawLuckyNumberViewModel : BindableBase
         set => this.SetProperty(ref this.stopIsEnabled, value);
     }
 
+    public ObservableCollection<string> LuckyNumbers
+    {
+        get => this.luckyNumbers;
+        set => SetProperty(ref this.luckyNumbers, value);
+    }
+
     public DateTime StartDateTimeValue { get; set; }
     public DateTime StopDateTimeValue { get; set; }
 
@@ -65,6 +73,7 @@ public class DrawLuckyNumberViewModel : BindableBase
         this.eventAggregator.GetEvent<LuckyNumberDrawnEvent>().Publish(0);
         this.cancellationTokenSource = new CancellationTokenSource();
         await this.StartDrawingLuckyNumber(this.cancellationTokenSource.Token);
+        this.eventAggregator.GetEvent<AllLuckyNumbersDrawnEvent>().Publish(this.LuckyNumbers);
     }
 
     public void StopDrawing()
@@ -116,6 +125,8 @@ public class DrawLuckyNumberViewModel : BindableBase
 
                            return luckyNumber;
                        }, cancellationToken);
+
+        this.LuckyNumbers.Add(luckyNumber.ToString());
 
         return luckyNumber;
     }

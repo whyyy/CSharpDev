@@ -24,7 +24,6 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="300" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -33,16 +32,17 @@
         </Grid.RowDefinitions>
         <controls:LuckyNumberControl
             Grid.Row="0"
-            Grid.Column="1"
+            Grid.Column="0"
             IsDrawing="{Binding IsDrawing, Mode=TwoWay}" />
         <Label
             x:Name="DrawingTotalTimeInSeconds"
             Grid.Row="1"
-            Grid.Column="1"
+            Grid.Column="0"
             MaxWidth="300"
             MaxHeight="50"
             HorizontalAlignment="Center"
             Content="{Binding DrawingTotalTimeInSeconds}"
             Visibility="Visible" />
+        <controls:DrawnNumberListBoxControl Grid.Row="0" Grid.Column="1" />
     </Grid>
 </UserControl>
