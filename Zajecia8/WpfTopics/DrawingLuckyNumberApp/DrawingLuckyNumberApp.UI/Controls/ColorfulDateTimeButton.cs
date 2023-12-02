@@ -21,7 +21,9 @@ public class ColorfulDateTimeButton : Button
     public DateTime ClickDateTimeValue
     {
         get => (DateTime)GetValue(ClickDateTimeValueProperty);
-        set => SetValue(ClickDateTimeValueProperty, value);
+        set => SetValue(
+                        ClickDateTimeValueProperty, 
+                        value);
     }
 
     protected override void OnClick()
@@ -33,7 +35,8 @@ public class ColorfulDateTimeButton : Button
 
     private SolidColorBrush GetRandomBrush()
     {
-        return new SolidColorBrush(Color.FromRgb((byte)this.random.Next(1, 255),
+        return new SolidColorBrush(Color.FromRgb(
+                                                 (byte)this.random.Next(1, 255),
                                                  (byte)this.random.Next(1, 255),
                                                  (byte)this.random.Next(1, 255)));
     }

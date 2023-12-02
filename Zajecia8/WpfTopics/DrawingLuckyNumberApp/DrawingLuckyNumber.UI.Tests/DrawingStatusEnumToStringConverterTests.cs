@@ -16,12 +16,16 @@ namespace DrawingLuckyNumberApp.UI.Tests
         [TestCase(DrawingStatus.None, DrawingStatus.None, "Drawing was not done yet")]
         [TestCase(DrawingStatus.Finished, DrawingStatus.None, "Drawing finished")]
         [TestCase(DrawingStatus.InProgress, DrawingStatus.Finished, "Drawing is in progress")]
-        public void Drawing_status_converter_tests(object value, object parameter, string convertedText)
+        public void Drawing_status_converter_tests(
+            object value, 
+            object parameter, 
+            string convertedText)
         {
             //given
 
             //when
-            var result = this.sut.Convert(value: value, 
+            var result = this.sut.Convert(
+                                          value: value, 
                                           targetType: null, 
                                           parameter: parameter,
                                           culture: CultureInfo.InvariantCulture);
