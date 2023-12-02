@@ -43,4 +43,8 @@
         <Setter Property="FontWeight" Value="Light" />
     </Style>
 
+    <Style x:Key="TextBoxStyle" TargetType="TextBox">
+        <Setter Property="Margin" Value="5" />
+    </Style>
+
 </ResourceDictionary>

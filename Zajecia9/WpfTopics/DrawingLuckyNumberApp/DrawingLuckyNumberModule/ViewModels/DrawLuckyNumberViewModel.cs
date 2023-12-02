@@ -2,6 +2,7 @@
 
 using System;
 using System.Threading.Tasks;
+using DrawingLuckyNumber.Core;
 using DrawingLuckyNumber.Core.Events;
 using Prism.Commands;
 using Prism.Events;
@@ -10,6 +11,9 @@ using Prism.Mvvm;
 public class DrawLuckyNumberViewModel : BindableBase
 {
     private CancellationTokenSource cancellationTokenSource;
+    
+    private int minNumber;
+    private int maxNumber;
     private bool startIsEnabled;
     private bool stopIsEnabled;
 
@@ -25,6 +29,18 @@ public class DrawLuckyNumberViewModel : BindableBase
 
     public DelegateCommand StartDrawingCommand { get; private set; }
     public DelegateCommand StopDrawingCommand { get; private set; }
+
+    public int MinNumber
+    {
+        get => this.minNumber;
+        set => this.SetProperty(ref this.minNumber, value);
+    }
+
+    public int MaxNumber
+    {
+        get => this.maxNumber;
+        set => this.SetProperty(ref this.maxNumber, value);
+    }
 
     public bool StartIsEnabled
     {
@@ -45,7 +61,7 @@ public class DrawLuckyNumberViewModel : BindableBase
     {
         this.StopIsEnabled = true;
         this.eventAggregator.GetEvent<DrawingTotalTimeInSecondsEvent>().Publish(0);
-        this.eventAggregator.GetEvent<IsDrawingInProgressEvent>().Publish(true);
+        this.eventAggregator.GetEvent<DrawingStatusEvent>().Publish(DrawingStatus.InProgress);
         this.eventAggregator.GetEvent<LuckyNumberDrawnEvent>().Publish(0);
         this.cancellationTokenSource = new CancellationTokenSource();
         await this.StartDrawingLuckyNumber(this.cancellationTokenSource.Token);
@@ -55,7 +71,7 @@ public class DrawLuckyNumberViewModel : BindableBase
     {
         this.StartIsEnabled = true;
         this.StopIsEnabled = false;
-        this.eventAggregator.GetEvent<IsDrawingInProgressEvent>().Publish(false);
+        this.eventAggregator.GetEvent<DrawingStatusEvent>().Publish(DrawingStatus.Finished);
         this.cancellationTokenSource?.Cancel();
         var drawingTotalTimeInSeconds = (this.StopDateTimeValue - this.StartDateTimeValue).TotalSeconds;
         this.eventAggregator.GetEvent<DrawingTotalTimeInSecondsEvent>().Publish(drawingTotalTimeInSeconds);
@@ -67,13 +83,22 @@ public class DrawLuckyNumberViewModel : BindableBase
         var luckyNumber = 0;
         this.StartIsEnabled = false;
 
+        if (this.MaxNumber - this.MinNumber <= 0)
+        {
+            this.eventAggregator.GetEvent<DrawingStatusEvent>().Publish(DrawingStatus.Failed);
+            this.StartIsEnabled = true;
+            this.StopIsEnabled = false;
+
+            return -1;
+        }
+        
         await Task.Run(() =>
                        {
                            try
                            {
                                while (!cancellationToken.IsCancellationRequested)
                                {
-                                   luckyNumber = random.Next(1, 99);
+                                   luckyNumber = random.Next(this.MinNumber, this.MaxNumber + 1);
                                    this.eventAggregator.GetEvent<LuckyNumberDrawnEvent>().Publish(luckyNumber);
                                    Task.Delay(100, cancellationToken);
                                }

@@ -1,5 +1,6 @@
 ﻿namespace ResultsModule.ViewModels;
 
+using System.Windows.Media;
 using DrawingLuckyNumber.Core;
 using DrawingLuckyNumber.Core.Events;
 using Prism.Events;
@@ -15,7 +16,7 @@ public class ResultsViewModel : BindableBase
     public ResultsViewModel(IEventAggregator eventAggregator)
     {
         this.DrawingStatus = DrawingStatus.None;
-        eventAggregator.GetEvent<IsDrawingInProgressEvent>().Subscribe(this.DrawingStatusReceived);
+        eventAggregator.GetEvent<DrawingStatusEvent>().Subscribe(this.DrawingReceived);
         eventAggregator.GetEvent<LuckyNumberDrawnEvent>().Subscribe(this.LuckyNumberReceived);
         eventAggregator.GetEvent<DrawingTotalTimeInSecondsEvent>().Subscribe(this.DrawingTotalTimeInSecondsReceived);
     }
@@ -44,10 +45,10 @@ public class ResultsViewModel : BindableBase
         set => SetProperty(ref this.drawingTotalTimeInSeconds, value);
     }
 
-    private void DrawingStatusReceived(bool receivedDrawingStatus)
+    private void DrawingReceived(DrawingStatus receivedDrawingStatus)
     {
-        this.IsDrawing = receivedDrawingStatus;
-        this.DrawingStatus = receivedDrawingStatus ? DrawingStatus.InProgress : DrawingStatus.Finished;
+        this.IsDrawing = receivedDrawingStatus is DrawingStatus.InProgress;
+        this.DrawingStatus = receivedDrawingStatus;
     }
 
     private void LuckyNumberReceived(int receivedLuckyNumber)
