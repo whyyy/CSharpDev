@@ -1,4 +1,4 @@
-﻿namespace DrawingLuckyNumber.Core;
+﻿namespace DrawingLuckyNumber.Core.Events;
 
 using Prism.Events;
 

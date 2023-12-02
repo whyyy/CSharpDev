@@ -24,8 +24,9 @@
             this.AssociatedObject.MouseEnter -= this.ApplyHoverStyle;
         }
 
-        private void ApplyHoverStyle(object sender,
-                                     MouseEventArgs args)
+        private void ApplyHoverStyle(
+            object sender,
+            MouseEventArgs args)
         {
             this.thicknessToRestore = this.AssociatedObject.BorderThickness;
             this.fontSizeToRestore = this.AssociatedObject.FontSize;
@@ -34,8 +35,9 @@
             this.AssociatedObject.FontSize = 18;
         }
 
-        private void RestoreStyle(object sender,
-                                  MouseEventArgs args)
+        private void RestoreStyle(
+            object sender,
+            MouseEventArgs args)
         {
             this.AssociatedObject.BorderThickness = this.thicknessToRestore;
             this.AssociatedObject.FontSize = this.fontSizeToRestore;
