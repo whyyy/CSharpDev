@@ -43,6 +43,9 @@
             HorizontalAlignment="Center"
             Content="{Binding DrawingTotalTimeInSeconds}"
             Visibility="Visible" />
-        <controls:DrawnNumberListBoxControl Grid.Row="0" Grid.Column="1" />
+        <controls:DrawnNumberListBoxControl
+            Grid.Row="0"
+            Grid.Column="1"
+            HorizontalAlignment="Center" />
     </Grid>
 </UserControl>

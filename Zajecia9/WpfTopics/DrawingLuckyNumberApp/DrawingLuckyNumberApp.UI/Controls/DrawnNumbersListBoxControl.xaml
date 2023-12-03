@@ -6,7 +6,7 @@
     xmlns:local="clr-namespace:DrawingLuckyNumberApp.UI.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="450"
-    d:DesignWidth="800"
+    d:DesignWidth="200"
     mc:Ignorable="d">
     <Grid>
         <Grid.RowDefinitions>
@@ -16,23 +16,25 @@
         <Label HorizontalAlignment="Center " Content="Drawn history" />
         <ListBox
             Grid.Row="1"
-            Width="250"
+            MinWidth="175"
             Margin="10"
-            ItemsSource="{Binding LuckyNumbers}">
-            <ListBox.ItemContainerStyle>
-                <Style TargetType="ListBoxItem">
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="ListBoxItem">
-                                <StackPanel>
-                                    <TextBlock Text="{Binding}" />
-                                    <Border BorderBrush="MidnightBlue" BorderThickness="0.75" />
-                                </StackPanel>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Style>
-            </ListBox.ItemContainerStyle>
+            ItemsSource="{Binding LuckyNumbers}"
+            ScrollViewer.VerticalScrollBarVisibility="Visible">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Border BorderBrush="MidnightBlue" BorderThickness="0.5" />
+                        <TextBlock FontSize="10" Text="Lucky number:" />
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            FontSize="12"
+                            FontWeight="Bold"
+                            Foreground="Green"
+                            Text="{Binding}" />
+                        <Border BorderBrush="MidnightBlue" BorderThickness="0.5" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
         </ListBox>
     </Grid>
 </UserControl>
