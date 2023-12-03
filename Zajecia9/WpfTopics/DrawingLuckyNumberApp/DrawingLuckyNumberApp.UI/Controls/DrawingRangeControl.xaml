@@ -31,6 +31,8 @@
                     Content="Provide drawing range">
                     <Label.Style>
                         <Style TargetType="Label">
+                            <Setter Property="HorizontalAlignment" Value="Center" />
+                            <Setter Property="VerticalAlignment" Value="Center" />
                             <Setter Property="Template">
                                 <Setter.Value>
                                     <ControlTemplate
@@ -43,7 +45,7 @@
                                             Background="DarkCyan"
                                             BorderBrush="{TemplateBinding Border.BorderBrush}"
                                             BorderThickness="1"
-                                            CornerRadius="45"
+                                            CornerRadius="30"
                                             SnapsToDevicePixels="True">
                                             <ContentPresenter
                                                 HorizontalAlignment="{TemplateBinding Control.HorizontalContentAlignment}"
@@ -56,14 +58,14 @@
                                                 ToolTip="Information label" />
                                         </Border>
                                         <ControlTemplate.Triggers>
-                                            <Trigger Property="UIElement.IsEnabled">
+                                            <Trigger Property="UIElement.IsMouseOver">
                                                 <Setter Property="TextElement.Foreground">
                                                     <Setter.Value>
-                                                        <DynamicResource ResourceKey="{x:Static SystemColors.GrayTextBrushKey}" />
+                                                        <SolidColorBrush Color="DarkOrange" />
                                                     </Setter.Value>
                                                 </Setter>
                                                 <Trigger.Value>
-                                                    <s:Boolean>False</s:Boolean>
+                                                    <s:Boolean>True</s:Boolean>
                                                 </Trigger.Value>
                                             </Trigger>
                                         </ControlTemplate.Triggers>
