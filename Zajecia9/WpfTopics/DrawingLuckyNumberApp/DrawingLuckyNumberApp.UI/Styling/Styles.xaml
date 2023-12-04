@@ -21,7 +21,6 @@
         <Setter Property="Foreground" Value="DarkSlateGray" />
         <Setter Property="FontWeight" Value="DemiBold" />
         <Setter Property="BorderThickness" Value="1" />
-
     </Style>
 
     <Style
@@ -43,8 +42,50 @@
         <Setter Property="FontWeight" Value="Light" />
     </Style>
 
-    <Style x:Key="TextBoxStyle" TargetType="TextBox">
+    <Style x:Key="TextBoxLuckyNumberStyle" TargetType="TextBlock">
         <Setter Property="Margin" Value="5" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="Foreground" Value="Black" />
     </Style>
+
+    <Style
+        x:Key="TextBoxEvenLuckyNumberStyle"
+        BasedOn="{StaticResource TextBoxLuckyNumberStyle}"
+        TargetType="TextBlock">
+        <Setter Property="Foreground" Value="Green" />
+    </Style>
+
+    <Style
+        x:Key="TextBoxOddLuckyNumberStyle"
+        BasedOn="{StaticResource TextBoxLuckyNumberStyle}"
+        TargetType="TextBlock">
+        <Setter Property="Foreground" Value="DarkRed" />
+    </Style>
+
+    <DataTemplate x:Key="EvenTemplate">
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Border BorderBrush="MidnightBlue" BorderThickness="0.5" />
+            <TextBlock
+                FontSize="10"
+                Foreground="Green"
+                Text="Lucky number:" />
+            <TextBlock Style="{StaticResource TextBoxEvenLuckyNumberStyle}" Text="{Binding Value}" />
+            <Border BorderBrush="MidnightBlue" BorderThickness="0.5" />
+        </StackPanel>
+    </DataTemplate>
+
+    <DataTemplate x:Key="OddTemplate">
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Border BorderBrush="MidnightBlue" BorderThickness="0.5" />
+            <TextBlock
+                FontSize="10"
+                Foreground="DarkRed"
+                Text="Lucky number:" />
+            <TextBlock Style="{StaticResource TextBoxOddLuckyNumberStyle}" Text="{Binding Value}" />
+            <Border BorderBrush="MidnightBlue" BorderThickness="0.5" />
+        </StackPanel>
+    </DataTemplate>
 
 </ResourceDictionary>

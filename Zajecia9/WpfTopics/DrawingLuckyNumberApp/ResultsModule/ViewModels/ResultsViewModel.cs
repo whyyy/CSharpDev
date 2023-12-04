@@ -11,7 +11,7 @@ public class ResultsViewModel : BindableBase
     private DrawingStatus drawingStatus;
     private bool isDrawing;
     private string luckyNumber;
-    private ObservableCollection<string> luckyNumbers;
+    private ObservableCollection<LuckyNumber> luckyNumbers;
     private string drawingTotalTimeInSeconds;
 
     public ResultsViewModel(IEventAggregator eventAggregator)
@@ -47,7 +47,7 @@ public class ResultsViewModel : BindableBase
         set => SetProperty(ref this.drawingTotalTimeInSeconds, value);
     }
 
-    public ObservableCollection<string> LuckyNumbers
+    public ObservableCollection<LuckyNumber> LuckyNumbers
     {
         get => this.luckyNumbers;
         set => SetProperty(ref this.luckyNumbers, value);
@@ -81,9 +81,9 @@ public class ResultsViewModel : BindableBase
         this.DrawingTotalTimeInSeconds = $"Drawing total time: {totalTimeInSeconds} seconds";
     }
 
-    private void AllLuckyNumbersDrawnReceived(ObservableCollection<string> receivedNumbers)
+    private void AllLuckyNumbersDrawnReceived(ObservableCollection<LuckyNumber> receivedNumbers)
     {
-        this.LuckyNumbers ??= new ObservableCollection<string>();
+        this.LuckyNumbers ??= new ObservableCollection<LuckyNumber>();
 
         this.LuckyNumbers = receivedNumbers;
     }

@@ -3,7 +3,7 @@
     using System.Collections.ObjectModel;
     using Prism.Events;
 
-    public class AllLuckyNumbersDrawnEvent : PubSubEvent<ObservableCollection<string>>
+    public class AllLuckyNumbersDrawnEvent : PubSubEvent<ObservableCollection<LuckyNumber>>
     {
     }
 }
