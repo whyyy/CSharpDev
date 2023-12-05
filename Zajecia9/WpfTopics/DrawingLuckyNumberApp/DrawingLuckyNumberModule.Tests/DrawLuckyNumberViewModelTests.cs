@@ -1,5 +1,6 @@
 namespace DrawingLuckyNumberModule.Tests;
 
+using DrawingLuckyNumber.Core;
 using DrawingLuckyNumber.Core.Events;
 using FluentAssertions;
 using NSubstitute;
@@ -26,8 +27,8 @@ public class DrawLuckyNumberViewModelTests
         //given
         var drawingTotalTimeInSecondsEvent = Substitute.For<DrawingTotalTimeInSecondsEvent>();
         this.eventAggregator.GetEvent<DrawingTotalTimeInSecondsEvent>().Returns(drawingTotalTimeInSecondsEvent);
-        var isDrawingInProgressEvent = Substitute.For<IsDrawingInProgressEvent>();
-        this.eventAggregator.GetEvent<IsDrawingInProgressEvent>().Returns(isDrawingInProgressEvent);
+        var isDrawingInProgressEvent = Substitute.For<DrawingStatusEvent>();
+        this.eventAggregator.GetEvent<DrawingStatusEvent>().Returns(isDrawingInProgressEvent);
         var luckyNumberDrawnEvent = Substitute.For<LuckyNumberDrawnEvent>();
         this.eventAggregator.GetEvent<LuckyNumberDrawnEvent>().Returns(luckyNumberDrawnEvent);
 
@@ -35,7 +36,7 @@ public class DrawLuckyNumberViewModelTests
         this.sut.StartDrawing();
 
         //then
-        isDrawingInProgressEvent.Received().Publish(true);
+        isDrawingInProgressEvent.Received().Publish(DrawingStatus.InProgress);
         luckyNumberDrawnEvent.Received().Publish(Arg.Any<int>());
         drawingTotalTimeInSecondsEvent.Received().Publish(0);
     }
@@ -47,6 +48,8 @@ public class DrawLuckyNumberViewModelTests
         var cancellationTokenSource = Substitute.For<CancellationTokenSource>(TimeSpan.FromMilliseconds(1000));
         var luckyNumberDrawnEvent = Substitute.For<LuckyNumberDrawnEvent>();
         this.eventAggregator.GetEvent<LuckyNumberDrawnEvent>().Returns(luckyNumberDrawnEvent);
+        this.sut.MinNumber = 1;
+        this.sut.MaxNumber = 99;
 
         //when
         var luckyNumber = await this.sut.StartDrawingLuckyNumber(cancellationTokenSource.Token);
@@ -63,6 +66,8 @@ public class DrawLuckyNumberViewModelTests
         cancellationTokenSource.Cancel();
         var luckyNumberDrawnEvent = Substitute.For<LuckyNumberDrawnEvent>();
         this.eventAggregator.GetEvent<LuckyNumberDrawnEvent>().Returns(luckyNumberDrawnEvent);
+        this.sut.MinNumber = 1;
+        this.sut.MaxNumber = 99;
 
         //when
         var result = async () => await this.sut.StartDrawingLuckyNumber(cancellationTokenSource.Token);
@@ -75,16 +80,16 @@ public class DrawLuckyNumberViewModelTests
     public void Should_publish_event_when_stop_drawing()
     {
         //given
-        var isDrawingInProgressEvent = Substitute.For<IsDrawingInProgressEvent>();
+        var isDrawingInProgressEvent = Substitute.For<DrawingStatusEvent>();
         var drawingTotalTimeInSeconds = Substitute.For<DrawingTotalTimeInSecondsEvent>();
-        this.eventAggregator.GetEvent<IsDrawingInProgressEvent>().Returns(isDrawingInProgressEvent);
+        this.eventAggregator.GetEvent<DrawingStatusEvent>().Returns(isDrawingInProgressEvent);
         this.eventAggregator.GetEvent<DrawingTotalTimeInSecondsEvent>().Returns(drawingTotalTimeInSeconds);
 
         //when
         this.sut.StopDrawing();
 
         //then
-        isDrawingInProgressEvent.Received().Publish(false);
+        isDrawingInProgressEvent.Received().Publish(DrawingStatus.Finished);
         drawingTotalTimeInSeconds.Received().Publish(0);
     }
 }

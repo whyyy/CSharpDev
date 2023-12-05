@@ -38,6 +38,8 @@
             <TextBlock>Start Drawing</TextBlock>
         </controls:ColorfulDateTimeButton>
 
+        <controls:DrawingRangeControl Grid.Column="1" />
+
         <controls:ColorfulDateTimeButton
             x:Name="StopButton"
             Grid.Row="0"

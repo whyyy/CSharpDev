@@ -1,5 +1,6 @@
 ﻿namespace ResultsModule.ViewModels;
 
+using System.Collections.ObjectModel;
 using DrawingLuckyNumber.Core;
 using DrawingLuckyNumber.Core.Events;
 using Prism.Events;
@@ -10,14 +11,16 @@ public class ResultsViewModel : BindableBase
     private DrawingStatus drawingStatus;
     private bool isDrawing;
     private string luckyNumber;
+    private ObservableCollection<LuckyNumber> luckyNumbers;
     private string drawingTotalTimeInSeconds;
 
     public ResultsViewModel(IEventAggregator eventAggregator)
     {
         this.DrawingStatus = DrawingStatus.None;
-        eventAggregator.GetEvent<IsDrawingInProgressEvent>().Subscribe(this.DrawingStatusReceived);
+        eventAggregator.GetEvent<DrawingStatusEvent>().Subscribe(this.DrawingReceived);
         eventAggregator.GetEvent<LuckyNumberDrawnEvent>().Subscribe(this.LuckyNumberReceived);
         eventAggregator.GetEvent<DrawingTotalTimeInSecondsEvent>().Subscribe(this.DrawingTotalTimeInSecondsReceived);
+        eventAggregator.GetEvent<AllLuckyNumbersDrawnEvent>().Subscribe(this.AllLuckyNumbersDrawnReceived);
     }
 
     public DrawingStatus DrawingStatus
@@ -44,10 +47,16 @@ public class ResultsViewModel : BindableBase
         set => SetProperty(ref this.drawingTotalTimeInSeconds, value);
     }
 
-    private void DrawingStatusReceived(bool receivedDrawingStatus)
+    public ObservableCollection<LuckyNumber> LuckyNumbers
     {
-        this.IsDrawing = receivedDrawingStatus;
-        this.DrawingStatus = receivedDrawingStatus ? DrawingStatus.InProgress : DrawingStatus.Finished;
+        get => this.luckyNumbers;
+        set => SetProperty(ref this.luckyNumbers, value);
+    }
+
+    private void DrawingReceived(DrawingStatus receivedDrawingStatus)
+    {
+        this.IsDrawing = receivedDrawingStatus is DrawingStatus.InProgress;
+        this.DrawingStatus = receivedDrawingStatus;
     }
 
     private void LuckyNumberReceived(int receivedLuckyNumber)
@@ -70,5 +79,12 @@ public class ResultsViewModel : BindableBase
         }
 
         this.DrawingTotalTimeInSeconds = $"Drawing total time: {totalTimeInSeconds} seconds";
+    }
+
+    private void AllLuckyNumbersDrawnReceived(ObservableCollection<LuckyNumber> receivedNumbers)
+    {
+        this.LuckyNumbers ??= new ObservableCollection<LuckyNumber>();
+
+        this.LuckyNumbers = receivedNumbers;
     }
 }

@@ -2,6 +2,6 @@
 
 using Prism.Events;
 
-public class IsDrawingInProgressEvent : PubSubEvent<bool>
+public class DrawingStatusEvent : PubSubEvent<DrawingStatus>
 {
 }

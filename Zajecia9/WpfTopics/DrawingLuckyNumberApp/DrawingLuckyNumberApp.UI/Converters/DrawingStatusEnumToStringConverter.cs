@@ -50,6 +50,8 @@
                     return "Drawing is in progress";
                 case DrawingStatus.Finished:
                     return "Drawing finished";
+                case DrawingStatus.Failed:
+                    return "Drawing failed, incorrect range provided";
             }
         }
     }

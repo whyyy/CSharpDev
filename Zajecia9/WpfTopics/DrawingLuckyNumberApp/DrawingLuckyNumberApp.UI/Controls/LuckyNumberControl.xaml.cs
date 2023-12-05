@@ -23,8 +23,9 @@ public partial class LuckyNumberControl : UserControl
         set => SetValue(IsDrawingProperty, value);
     }
 
-    private static void OnDrawingStatusChanged(DependencyObject target,
-                                               DependencyPropertyChangedEventArgs e)
+    private static void OnDrawingStatusChanged(
+        DependencyObject target,
+        DependencyPropertyChangedEventArgs e)
     {
         if (e.NewValue != null)
         {
