@@ -42,7 +42,7 @@
         <Setter Property="FontWeight" Value="Light" />
     </Style>
 
-    <Style x:Key="TextBoxLuckyNumberStyle" TargetType="TextBlock">
+    <Style x:Key="TextBlockLuckyNumberStyle" TargetType="TextBlock">
         <Setter Property="Margin" Value="5" />
         <Setter Property="HorizontalAlignment" Value="Center" />
         <Setter Property="FontSize" Value="12" />
@@ -51,15 +51,15 @@
     </Style>
 
     <Style
-        x:Key="TextBoxEvenLuckyNumberStyle"
-        BasedOn="{StaticResource TextBoxLuckyNumberStyle}"
+        x:Key="TextBlockEvenLuckyNumberStyle"
+        BasedOn="{StaticResource TextBlockLuckyNumberStyle}"
         TargetType="TextBlock">
         <Setter Property="Foreground" Value="Green" />
     </Style>
 
     <Style
-        x:Key="TextBoxOddLuckyNumberStyle"
-        BasedOn="{StaticResource TextBoxLuckyNumberStyle}"
+        x:Key="TextBlockOddLuckyNumberStyle"
+        BasedOn="{StaticResource TextBlockLuckyNumberStyle}"
         TargetType="TextBlock">
         <Setter Property="Foreground" Value="DarkRed" />
     </Style>
@@ -71,7 +71,7 @@
                 FontSize="10"
                 Foreground="Green"
                 Text="Lucky number:" />
-            <TextBlock Style="{StaticResource TextBoxEvenLuckyNumberStyle}" Text="{Binding Value}" />
+            <TextBlock Style="{StaticResource TextBlockEvenLuckyNumberStyle}" Text="{Binding Value}" />
             <Border BorderBrush="MidnightBlue" BorderThickness="0.5" />
         </StackPanel>
     </DataTemplate>
@@ -83,9 +83,30 @@
                 FontSize="10"
                 Foreground="DarkRed"
                 Text="Lucky number:" />
-            <TextBlock Style="{StaticResource TextBoxOddLuckyNumberStyle}" Text="{Binding Value}" />
+            <TextBlock Style="{StaticResource TextBlockOddLuckyNumberStyle}" Text="{Binding Value}" />
             <Border BorderBrush="MidnightBlue" BorderThickness="0.5" />
         </StackPanel>
     </DataTemplate>
+
+    <Style x:Key="RangeValueErrorTextBoxStyle" TargetType="TextBox">
+        <Setter Property="Validation.ErrorTemplate">
+            <Setter.Value>
+                <ControlTemplate>
+                    <StackPanel>
+                        <AdornedElementPlaceholder x:Name="textBox" />
+                        <ItemsControl ItemsSource="{Binding}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border BorderBrush="Red" BorderThickness="0.75">
+                                        <TextBlock Foreground="Red" Text="{Binding ErrorContent}" />
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
 </ResourceDictionary>

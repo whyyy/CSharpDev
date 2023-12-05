@@ -21,22 +21,6 @@
             Margin="10"
             ItemsSource="{Binding LuckyNumbers}"
             ScrollViewer.VerticalScrollBarVisibility="Visible">
-            <!--<ListBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <Border BorderBrush="MidnightBlue" BorderThickness="0.5" />
-                        <TextBlock FontSize="10" Text="Lucky number:" />
-                        <TextBlock
-                            HorizontalAlignment="Center"
-                            FontSize="12"
-                            FontWeight="Bold"
-                            Foreground="Green"
-                            Text="{Binding Value}" />
-                        <Border BorderBrush="MidnightBlue" BorderThickness="0.5" />
-                    </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>-->
-
             <ListBox.ItemTemplateSelector>
                 <templateSelectors:ItemHighlightTemplateSelector
                     EvenTemplate="{StaticResource EvenTemplate}"

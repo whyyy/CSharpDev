@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:DrawingLuckyNumberApp.UI.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:validationRules="clr-namespace:DrawingLuckyNumberApp.UI.Controls.ValidationRules"
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
@@ -80,24 +81,43 @@
                 <Label
                     Grid.Row="2"
                     Grid.Column="1"
+                    Margin="10"
                     Content="Min number:" />
 
                 <TextBox
                     x:Name="MinNumber"
                     Grid.Row="3"
                     Grid.Column="1"
-                    Text="{Binding MinNumber}" />
+                    Style="{StaticResource RangeValueErrorTextBoxStyle}">
+                    <TextBox.Text>
+                        <Binding Path="MinNumber" UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <validationRules:RangeValueValidationRule ValidatesOnTargetUpdated="True" />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+
+                </TextBox>
 
                 <Label
                     Grid.Row="4"
                     Grid.Column="1"
+                    Margin="10"
                     Content="Max number:" />
 
                 <TextBox
                     x:Name="MaxNumber"
                     Grid.Row="5"
                     Grid.Column="1"
-                    Text="{Binding MaxNumber}" />
+                    Style="{StaticResource RangeValueErrorTextBoxStyle}">
+                    <TextBox.Text>
+                        <Binding Path="MaxNumber" UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <validationRules:RangeValueValidationRule ValidatesOnTargetUpdated="True" />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
             </Grid>
         </ControlTemplate>
     </UserControl.Template>
