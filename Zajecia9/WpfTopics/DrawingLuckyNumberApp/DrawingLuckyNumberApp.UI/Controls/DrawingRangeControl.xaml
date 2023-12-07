@@ -3,11 +3,21 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:extensions="clr-namespace:DrawingLuckyNumberApp.UI.Extensions"
     xmlns:local="clr-namespace:DrawingLuckyNumberApp.UI.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:system="clr-namespace:System;assembly=System.Runtime"
+    xmlns:validationRules="clr-namespace:DrawingLuckyNumberApp.UI.Controls.ValidationRules"
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
+    <UserControl.Resources>
+        <system:Int32 x:Key="MarkupNumber">-1</system:Int32>
+        <system:String x:Key="MinNumberLabel">Min Number:</system:String>
+        <system:String x:Key="MinNumberTooltip">should be bigger than zero</system:String>
+        <system:String x:Key="MaxNumberLabel">Max Number:</system:String>
+        <system:String x:Key="MaxNumberTooltip">should be at least 2 more than Min Number</system:String>
+    </UserControl.Resources>
     <UserControl.Template>
         <ControlTemplate TargetType="UserControl">
             <Grid>
@@ -65,7 +75,7 @@
                                                     </Setter.Value>
                                                 </Setter>
                                                 <Trigger.Value>
-                                                    <s:Boolean>True</s:Boolean>
+                                                    <system:Boolean>True</system:Boolean>
                                                 </Trigger.Value>
                                             </Trigger>
                                         </ControlTemplate.Triggers>
@@ -80,24 +90,47 @@
                 <Label
                     Grid.Row="2"
                     Grid.Column="1"
-                    Content="Min number:" />
+                    Content="{StaticResource MinNumberLabel}"
+                    ToolTip="{extensions:RangeInformationMarkup NumberName={StaticResource MinNumberLabel},
+                                                                SomeNumber={StaticResource MarkupNumber},
+                                                                Information={StaticResource MinNumberTooltip}}" />
 
                 <TextBox
                     x:Name="MinNumber"
                     Grid.Row="3"
                     Grid.Column="1"
-                    Text="{Binding MinNumber}" />
+                    Style="{StaticResource RangeValueErrorTextBoxStyle}">
+                    <TextBox.Text>
+                        <Binding Path="MinNumber" UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <validationRules:RangeValueValidationRule ValidatesOnTargetUpdated="True" />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+
+                </TextBox>
 
                 <Label
                     Grid.Row="4"
                     Grid.Column="1"
-                    Content="Max number:" />
+                    Content="{StaticResource MaxNumberLabel}"
+                    ToolTip="{extensions:RangeInformationMarkup NumberName={StaticResource MaxNumberLabel},
+                                                                Information={StaticResource MaxNumberTooltip}}" />
 
                 <TextBox
                     x:Name="MaxNumber"
                     Grid.Row="5"
                     Grid.Column="1"
-                    Text="{Binding MaxNumber}" />
+                    Style="{StaticResource RangeValueErrorTextBoxStyle}">
+                    <TextBox.Text>
+                        <Binding Path="MaxNumber" UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <validationRules:RangeValueValidationRule ValidatesOnTargetUpdated="True" />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+
             </Grid>
         </ControlTemplate>
     </UserControl.Template>

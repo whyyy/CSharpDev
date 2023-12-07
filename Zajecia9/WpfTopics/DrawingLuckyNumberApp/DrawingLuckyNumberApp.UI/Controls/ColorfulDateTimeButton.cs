@@ -9,7 +9,8 @@ public class ColorfulDateTimeButton : Button
     private static readonly DependencyProperty ClickDateTimeValueProperty = DependencyProperty.Register(
         nameof(ClickDateTimeValue), 
         typeof(DateTime), 
-        typeof(ColorfulDateTimeButton));
+        typeof(ColorfulDateTimeButton),
+        new PropertyMetadata(DateTime.Now.AddDays(-2), OnPropertyValueChanged));
 
     private readonly Random random = new Random();
 
@@ -39,5 +40,23 @@ public class ColorfulDateTimeButton : Button
                                                  (byte)this.random.Next(1, 255),
                                                  (byte)this.random.Next(1, 255),
                                                  (byte)this.random.Next(1, 255)));
+    }
+
+    private static void OnPropertyValueChanged(
+        DependencyObject target,
+        DependencyPropertyChangedEventArgs e)
+    {
+        if (e.NewValue != null)
+        {
+            (target as ColorfulDateTimeButton)?.UpdateDateTime((DateTime)e.NewValue);
+        }
+    }
+
+    private void UpdateDateTime(DateTime dateTime)
+    {
+        if (dateTime <= DateTime.Now)
+        {
+            this.ClickDateTimeValue = dateTime;
+        }
     }
 }
